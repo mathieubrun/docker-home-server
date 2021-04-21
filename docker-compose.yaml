@@ -180,6 +180,66 @@ services:
       - traefik.http.routers.cups.tls.certresolver=myresolver
       - traefik.http.services.cups.loadbalancer.server.port=631
 
+  iot_mosquitto:
+    image: eclipse-mosquitto:1.6.10
+    container_name: iot_mosquitto
+    hostname: iot_mosquitto
+    restart: always
+    ports:
+      - 127.0.0.1:1883:1883
+    volumes:
+      - ./data/mosquitto:/mosquitto/data
+      - ./config/mosquitto/mosquitto.conf:/mosquitto/config/mosquitto.conf
+
+  iot_nodered:
+    image: nodered/node-red:1.2.9-12
+    container_name: iot_nodered
+    hostname: iot_nodered
+    restart: always
+    depends_on:
+      - iot_mosquitto
+      - iot_zigbee2mqtt
+    environment:
+      - TZ=${TZ}
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.nodered.rule=Host(`nodered.${TRAEFIK_DOMAIN}`)
+      - traefik.http.routers.nodered.tls=true
+      - traefik.http.routers.nodered.tls.certresolver=myresolver
+      - traefik.port=1880
+    volumes:
+      - ./data/nodered:/data
+
+  iot_zigbee2mqtt:
+    image: koenkk/zigbee2mqtt:1.18.2
+    container_name: iot_zigbee2mqtt
+    hostname: iot_zigbee2mqtt
+    restart: always
+    depends_on:
+      - iot_mosquitto
+    devices:
+      - /dev/ttyACM0
+    environment:
+      - TZ=${TZ}
+      - ZIGBEE2MQTT_CONFIG_FRONTEND_PORT=8080
+      - ZIGBEE2MQTT_CONFIG_HOMEASSISTANT=false
+      - ZIGBEE2MQTT_CONFIG_PERMIT_JOIN=false
+      - ZIGBEE2MQTT_CONFIG_MQTT_SERVER=mqtt://iot_mosquitto
+      - ZIGBEE2MQTT_CONFIG_MQTT_BASE_TOPIC=zigbee2mqtt
+      - ZIGBEE2MQTT_CONFIG_MQTT_INCLUDE_DEVICE_INFORMATION=true
+      - ZIGBEE2MQTT_CONFIG_SERIAL_PORT=/dev/ttyACM0
+      - ZIGBEE2MQTT_CONFIG_SERIAL_DISABLE_LED=true
+      - ZIGBEE2MQTT_CONFIG_ADVANCED_LOG_LEVEL=warn
+      - ZIGBEE2MQTT_CONFIG_ADVANCED_LOG_OUTPUT_0=console
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.zigbee2mqtt.rule=Host(`zigbee.${TRAEFIK_DOMAIN}`)
+      - traefik.http.routers.zigbee2mqtt.tls=true
+      - traefik.http.routers.zigbee2mqtt.tls.certresolver=myresolver
+      - traefik.http.services.zigbee2mqtt.loadbalancer.server.port=8080
+    volumes:
+      - ./data/zigbee2mqtt:/app/data
+
 networks:
   default:
     ipam:

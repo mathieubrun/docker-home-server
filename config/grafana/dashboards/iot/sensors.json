@@ -1,0 +1,2495 @@
+{
+    "annotations": {
+      "list": [
+        {
+          "builtIn": 1,
+          "datasource": "-- Grafana --",
+          "enable": true,
+          "hide": true,
+          "iconColor": "rgba(0, 211, 255, 1)",
+          "name": "Annotations & Alerts",
+          "type": "dashboard"
+        }
+      ]
+    },
+    "editable": true,
+    "gnetId": null,
+    "graphTooltip": 0,
+    "iteration": 1618427025176,
+    "links": [],
+    "panels": [
+      {
+        "datasource": "InfluxDB",
+        "fieldConfig": {
+          "defaults": {
+            "mappings": [],
+            "max": 40,
+            "min": 0,
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "#EAB839",
+                  "value": 25
+                },
+                {
+                  "color": "red",
+                  "value": 28
+                }
+              ]
+            }
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 6,
+          "w": 24,
+          "x": 0,
+          "y": 0
+        },
+        "id": 16,
+        "options": {
+          "reduceOptions": {
+            "calcs": [
+              "mean"
+            ],
+            "fields": "",
+            "values": false
+          },
+          "showThresholdLabels": false,
+          "showThresholdMarkers": true,
+          "text": {}
+        },
+        "pluginVersion": "7.5.4",
+        "targets": [
+          {
+            "alias": "$tag_device_friendlyName",
+            "groupBy": [
+              {
+                "params": [
+                  "device_friendlyName"
+                ],
+                "type": "tag"
+              }
+            ],
+            "measurement": "mqtt_consumer",
+            "orderByTime": "ASC",
+            "policy": "autogen",
+            "refId": "A",
+            "resultFormat": "time_series",
+            "select": [
+              [
+                {
+                  "params": [
+                    "temperature"
+                  ],
+                  "type": "field"
+                },
+                {
+                  "params": [],
+                  "type": "last"
+                }
+              ]
+            ],
+            "tags": [
+              {
+                "key": "device_friendlyName",
+                "operator": "=~",
+                "value": "/^$TempSensors$/"
+              }
+            ]
+          }
+        ],
+        "timeFrom": null,
+        "timeShift": null,
+        "title": "Temperatures",
+        "type": "gauge"
+      },
+      {
+        "collapsed": false,
+        "datasource": null,
+        "gridPos": {
+          "h": 1,
+          "w": 24,
+          "x": 0,
+          "y": 6
+        },
+        "id": 12,
+        "panels": [],
+        "title": "Temperatures",
+        "type": "row"
+      },
+      {
+        "aliasColors": {
+          "battery": "super-light-purple",
+          "humidity": "light-blue",
+          "mqtt_consumer.humidity": "blue",
+          "mqtt_consumer.temperature": "yellow"
+        },
+        "bars": false,
+        "dashLength": 10,
+        "dashes": false,
+        "datasource": "InfluxDB",
+        "description": "",
+        "fieldConfig": {
+          "defaults": {
+            "unit": ""
+          },
+          "overrides": []
+        },
+        "fill": 1,
+        "fillGradient": 2,
+        "gridPos": {
+          "h": 9,
+          "w": 12,
+          "x": 0,
+          "y": 7
+        },
+        "hiddenSeries": false,
+        "id": 6,
+        "legend": {
+          "avg": false,
+          "current": false,
+          "max": false,
+          "min": false,
+          "rightSide": false,
+          "show": true,
+          "total": false,
+          "values": false
+        },
+        "lines": true,
+        "linewidth": 2,
+        "maxPerRow": 2,
+        "nullPointMode": "null",
+        "options": {
+          "alertThreshold": false
+        },
+        "percentage": false,
+        "pluginVersion": "7.5.4",
+        "pointradius": 1,
+        "points": true,
+        "renderer": "flot",
+        "repeat": "TempSensors",
+        "repeatDirection": "h",
+        "scopedVars": {
+          "TempSensors": {
+            "selected": false,
+            "text": "bathroom.temp",
+            "value": "bathroom.temp"
+          }
+        },
+        "seriesOverrides": [
+          {
+            "$$hashKey": "object:263",
+            "alias": "bathroom.temp",
+            "yaxis": 1
+          },
+          {
+            "$$hashKey": "object:264",
+            "alias": "mqtt_consumer.humidity",
+            "yaxis": 2
+          },
+          {
+            "$$hashKey": "object:265",
+            "alias": "humidity",
+            "yaxis": 2
+          },
+          {
+            "$$hashKey": "object:146",
+            "alias": "battery",
+            "yaxis": 2
+          }
+        ],
+        "spaceLength": 10,
+        "stack": false,
+        "steppedLine": false,
+        "targets": [
+          {
+            "alias": "$col",
+            "groupBy": [],
+            "measurement": "mqtt_consumer",
+            "orderByTime": "ASC",
+            "policy": "autogen",
+            "query": "SELECT \"temperature\" AS \"temperature\", \"humidity\" AS \"humidity\" FROM \"autogen\".\"mqtt_consumer\" WHERE (\"device_friendlyName\" = 'bathroom.temp') AND $timeFilter GROUP BY \"device_friendlyName\"",
+            "rawQuery": false,
+            "refId": "A",
+            "resultFormat": "time_series",
+            "select": [
+              [
+                {
+                  "params": [
+                    "temperature"
+                  ],
+                  "type": "field"
+                },
+                {
+                  "params": [
+                    "temperature"
+                  ],
+                  "type": "alias"
+                }
+              ],
+              [
+                {
+                  "params": [
+                    "humidity"
+                  ],
+                  "type": "field"
+                },
+                {
+                  "params": [
+                    "humidity"
+                  ],
+                  "type": "alias"
+                }
+              ]
+            ],
+            "tags": [
+              {
+                "key": "device_friendlyName",
+                "operator": "=~",
+                "value": "/^$TempSensors$/"
+              }
+            ]
+          }
+        ],
+        "thresholds": [],
+        "timeFrom": null,
+        "timeRegions": [],
+        "timeShift": null,
+        "title": "$TempSensors",
+        "tooltip": {
+          "shared": true,
+          "sort": 0,
+          "value_type": "individual"
+        },
+        "type": "graph",
+        "xaxis": {
+          "buckets": null,
+          "mode": "time",
+          "name": null,
+          "show": true,
+          "values": []
+        },
+        "yaxes": [
+          {
+            "$$hashKey": "object:136",
+            "decimals": 1,
+            "format": "celsius",
+            "label": "Temperature",
+            "logBase": 1,
+            "max": "40",
+            "min": "0",
+            "show": true
+          },
+          {
+            "$$hashKey": "object:137",
+            "decimals": 0,
+            "format": "humidity",
+            "label": "Humidity",
+            "logBase": 1,
+            "max": "100",
+            "min": "30",
+            "show": true
+          }
+        ],
+        "yaxis": {
+          "align": false,
+          "alignLevel": null
+        }
+      },
+      {
+        "aliasColors": {
+          "battery": "super-light-purple",
+          "humidity": "light-blue",
+          "mqtt_consumer.humidity": "blue",
+          "mqtt_consumer.temperature": "yellow"
+        },
+        "bars": false,
+        "dashLength": 10,
+        "dashes": false,
+        "datasource": "InfluxDB",
+        "description": "",
+        "fieldConfig": {
+          "defaults": {
+            "unit": ""
+          },
+          "overrides": []
+        },
+        "fill": 1,
+        "fillGradient": 2,
+        "gridPos": {
+          "h": 9,
+          "w": 12,
+          "x": 12,
+          "y": 7
+        },
+        "hiddenSeries": false,
+        "id": 28,
+        "legend": {
+          "avg": false,
+          "current": false,
+          "max": false,
+          "min": false,
+          "rightSide": false,
+          "show": true,
+          "total": false,
+          "values": false
+        },
+        "lines": true,
+        "linewidth": 2,
+        "maxPerRow": 2,
+        "nullPointMode": "null",
+        "options": {
+          "alertThreshold": false
+        },
+        "percentage": false,
+        "pluginVersion": "7.5.4",
+        "pointradius": 1,
+        "points": true,
+        "renderer": "flot",
+        "repeatDirection": "h",
+        "repeatIteration": 1618427025176,
+        "repeatPanelId": 6,
+        "scopedVars": {
+          "TempSensors": {
+            "selected": false,
+            "text": "couloir.temp",
+            "value": "couloir.temp"
+          }
+        },
+        "seriesOverrides": [
+          {
+            "$$hashKey": "object:263",
+            "alias": "bathroom.temp",
+            "yaxis": 1
+          },
+          {
+            "$$hashKey": "object:264",
+            "alias": "mqtt_consumer.humidity",
+            "yaxis": 2
+          },
+          {
+            "$$hashKey": "object:265",
+            "alias": "humidity",
+            "yaxis": 2
+          },
+          {
+            "$$hashKey": "object:146",
+            "alias": "battery",
+            "yaxis": 2
+          }
+        ],
+        "spaceLength": 10,
+        "stack": false,
+        "steppedLine": false,
+        "targets": [
+          {
+            "alias": "$col",
+            "groupBy": [],
+            "measurement": "mqtt_consumer",
+            "orderByTime": "ASC",
+            "policy": "autogen",
+            "query": "SELECT \"temperature\" AS \"temperature\", \"humidity\" AS \"humidity\" FROM \"autogen\".\"mqtt_consumer\" WHERE (\"device_friendlyName\" = 'bathroom.temp') AND $timeFilter GROUP BY \"device_friendlyName\"",
+            "rawQuery": false,
+            "refId": "A",
+            "resultFormat": "time_series",
+            "select": [
+              [
+                {
+                  "params": [
+                    "temperature"
+                  ],
+                  "type": "field"
+                },
+                {
+                  "params": [
+                    "temperature"
+                  ],
+                  "type": "alias"
+                }
+              ],
+              [
+                {
+                  "params": [
+                    "humidity"
+                  ],
+                  "type": "field"
+                },
+                {
+                  "params": [
+                    "humidity"
+                  ],
+                  "type": "alias"
+                }
+              ]
+            ],
+            "tags": [
+              {
+                "key": "device_friendlyName",
+                "operator": "=~",
+                "value": "/^$TempSensors$/"
+              }
+            ]
+          }
+        ],
+        "thresholds": [],
+        "timeFrom": null,
+        "timeRegions": [],
+        "timeShift": null,
+        "title": "$TempSensors",
+        "tooltip": {
+          "shared": true,
+          "sort": 0,
+          "value_type": "individual"
+        },
+        "type": "graph",
+        "xaxis": {
+          "buckets": null,
+          "mode": "time",
+          "name": null,
+          "show": true,
+          "values": []
+        },
+        "yaxes": [
+          {
+            "$$hashKey": "object:136",
+            "decimals": 1,
+            "format": "celsius",
+            "label": "Temperature",
+            "logBase": 1,
+            "max": "40",
+            "min": "0",
+            "show": true
+          },
+          {
+            "$$hashKey": "object:137",
+            "decimals": 0,
+            "format": "humidity",
+            "label": "Humidity",
+            "logBase": 1,
+            "max": "100",
+            "min": "30",
+            "show": true
+          }
+        ],
+        "yaxis": {
+          "align": false,
+          "alignLevel": null
+        }
+      },
+      {
+        "aliasColors": {
+          "battery": "super-light-purple",
+          "humidity": "light-blue",
+          "mqtt_consumer.humidity": "blue",
+          "mqtt_consumer.temperature": "yellow"
+        },
+        "bars": false,
+        "dashLength": 10,
+        "dashes": false,
+        "datasource": "InfluxDB",
+        "description": "",
+        "fieldConfig": {
+          "defaults": {
+            "unit": ""
+          },
+          "overrides": []
+        },
+        "fill": 1,
+        "fillGradient": 2,
+        "gridPos": {
+          "h": 9,
+          "w": 12,
+          "x": 0,
+          "y": 16
+        },
+        "hiddenSeries": false,
+        "id": 29,
+        "legend": {
+          "avg": false,
+          "current": false,
+          "max": false,
+          "min": false,
+          "rightSide": false,
+          "show": true,
+          "total": false,
+          "values": false
+        },
+        "lines": true,
+        "linewidth": 2,
+        "maxPerRow": 2,
+        "nullPointMode": "null",
+        "options": {
+          "alertThreshold": false
+        },
+        "percentage": false,
+        "pluginVersion": "7.5.4",
+        "pointradius": 1,
+        "points": true,
+        "renderer": "flot",
+        "repeatDirection": "h",
+        "repeatIteration": 1618427025176,
+        "repeatPanelId": 6,
+        "scopedVars": {
+          "TempSensors": {
+            "selected": false,
+            "text": "kid_room.temp",
+            "value": "kid_room.temp"
+          }
+        },
+        "seriesOverrides": [
+          {
+            "$$hashKey": "object:263",
+            "alias": "bathroom.temp",
+            "yaxis": 1
+          },
+          {
+            "$$hashKey": "object:264",
+            "alias": "mqtt_consumer.humidity",
+            "yaxis": 2
+          },
+          {
+            "$$hashKey": "object:265",
+            "alias": "humidity",
+            "yaxis": 2
+          },
+          {
+            "$$hashKey": "object:146",
+            "alias": "battery",
+            "yaxis": 2
+          }
+        ],
+        "spaceLength": 10,
+        "stack": false,
+        "steppedLine": false,
+        "targets": [
+          {
+            "alias": "$col",
+            "groupBy": [],
+            "measurement": "mqtt_consumer",
+            "orderByTime": "ASC",
+            "policy": "autogen",
+            "query": "SELECT \"temperature\" AS \"temperature\", \"humidity\" AS \"humidity\" FROM \"autogen\".\"mqtt_consumer\" WHERE (\"device_friendlyName\" = 'bathroom.temp') AND $timeFilter GROUP BY \"device_friendlyName\"",
+            "rawQuery": false,
+            "refId": "A",
+            "resultFormat": "time_series",
+            "select": [
+              [
+                {
+                  "params": [
+                    "temperature"
+                  ],
+                  "type": "field"
+                },
+                {
+                  "params": [
+                    "temperature"
+                  ],
+                  "type": "alias"
+                }
+              ],
+              [
+                {
+                  "params": [
+                    "humidity"
+                  ],
+                  "type": "field"
+                },
+                {
+                  "params": [
+                    "humidity"
+                  ],
+                  "type": "alias"
+                }
+              ]
+            ],
+            "tags": [
+              {
+                "key": "device_friendlyName",
+                "operator": "=~",
+                "value": "/^$TempSensors$/"
+              }
+            ]
+          }
+        ],
+        "thresholds": [],
+        "timeFrom": null,
+        "timeRegions": [],
+        "timeShift": null,
+        "title": "$TempSensors",
+        "tooltip": {
+          "shared": true,
+          "sort": 0,
+          "value_type": "individual"
+        },
+        "type": "graph",
+        "xaxis": {
+          "buckets": null,
+          "mode": "time",
+          "name": null,
+          "show": true,
+          "values": []
+        },
+        "yaxes": [
+          {
+            "$$hashKey": "object:136",
+            "decimals": 1,
+            "format": "celsius",
+            "label": "Temperature",
+            "logBase": 1,
+            "max": "40",
+            "min": "0",
+            "show": true
+          },
+          {
+            "$$hashKey": "object:137",
+            "decimals": 0,
+            "format": "humidity",
+            "label": "Humidity",
+            "logBase": 1,
+            "max": "100",
+            "min": "30",
+            "show": true
+          }
+        ],
+        "yaxis": {
+          "align": false,
+          "alignLevel": null
+        }
+      },
+      {
+        "aliasColors": {
+          "battery": "super-light-purple",
+          "humidity": "light-blue",
+          "mqtt_consumer.humidity": "blue",
+          "mqtt_consumer.temperature": "yellow"
+        },
+        "bars": false,
+        "dashLength": 10,
+        "dashes": false,
+        "datasource": "InfluxDB",
+        "description": "",
+        "fieldConfig": {
+          "defaults": {
+            "unit": ""
+          },
+          "overrides": []
+        },
+        "fill": 1,
+        "fillGradient": 2,
+        "gridPos": {
+          "h": 9,
+          "w": 12,
+          "x": 12,
+          "y": 16
+        },
+        "hiddenSeries": false,
+        "id": 30,
+        "legend": {
+          "avg": false,
+          "current": false,
+          "max": false,
+          "min": false,
+          "rightSide": false,
+          "show": true,
+          "total": false,
+          "values": false
+        },
+        "lines": true,
+        "linewidth": 2,
+        "maxPerRow": 2,
+        "nullPointMode": "null",
+        "options": {
+          "alertThreshold": false
+        },
+        "percentage": false,
+        "pluginVersion": "7.5.4",
+        "pointradius": 1,
+        "points": true,
+        "renderer": "flot",
+        "repeatDirection": "h",
+        "repeatIteration": 1618427025176,
+        "repeatPanelId": 6,
+        "scopedVars": {
+          "TempSensors": {
+            "selected": false,
+            "text": "living_room.temp",
+            "value": "living_room.temp"
+          }
+        },
+        "seriesOverrides": [
+          {
+            "$$hashKey": "object:263",
+            "alias": "bathroom.temp",
+            "yaxis": 1
+          },
+          {
+            "$$hashKey": "object:264",
+            "alias": "mqtt_consumer.humidity",
+            "yaxis": 2
+          },
+          {
+            "$$hashKey": "object:265",
+            "alias": "humidity",
+            "yaxis": 2
+          },
+          {
+            "$$hashKey": "object:146",
+            "alias": "battery",
+            "yaxis": 2
+          }
+        ],
+        "spaceLength": 10,
+        "stack": false,
+        "steppedLine": false,
+        "targets": [
+          {
+            "alias": "$col",
+            "groupBy": [],
+            "measurement": "mqtt_consumer",
+            "orderByTime": "ASC",
+            "policy": "autogen",
+            "query": "SELECT \"temperature\" AS \"temperature\", \"humidity\" AS \"humidity\" FROM \"autogen\".\"mqtt_consumer\" WHERE (\"device_friendlyName\" = 'bathroom.temp') AND $timeFilter GROUP BY \"device_friendlyName\"",
+            "rawQuery": false,
+            "refId": "A",
+            "resultFormat": "time_series",
+            "select": [
+              [
+                {
+                  "params": [
+                    "temperature"
+                  ],
+                  "type": "field"
+                },
+                {
+                  "params": [
+                    "temperature"
+                  ],
+                  "type": "alias"
+                }
+              ],
+              [
+                {
+                  "params": [
+                    "humidity"
+                  ],
+                  "type": "field"
+                },
+                {
+                  "params": [
+                    "humidity"
+                  ],
+                  "type": "alias"
+                }
+              ]
+            ],
+            "tags": [
+              {
+                "key": "device_friendlyName",
+                "operator": "=~",
+                "value": "/^$TempSensors$/"
+              }
+            ]
+          }
+        ],
+        "thresholds": [],
+        "timeFrom": null,
+        "timeRegions": [],
+        "timeShift": null,
+        "title": "$TempSensors",
+        "tooltip": {
+          "shared": true,
+          "sort": 0,
+          "value_type": "individual"
+        },
+        "type": "graph",
+        "xaxis": {
+          "buckets": null,
+          "mode": "time",
+          "name": null,
+          "show": true,
+          "values": []
+        },
+        "yaxes": [
+          {
+            "$$hashKey": "object:136",
+            "decimals": 1,
+            "format": "celsius",
+            "label": "Temperature",
+            "logBase": 1,
+            "max": "40",
+            "min": "0",
+            "show": true
+          },
+          {
+            "$$hashKey": "object:137",
+            "decimals": 0,
+            "format": "humidity",
+            "label": "Humidity",
+            "logBase": 1,
+            "max": "100",
+            "min": "30",
+            "show": true
+          }
+        ],
+        "yaxis": {
+          "align": false,
+          "alignLevel": null
+        }
+      },
+      {
+        "aliasColors": {
+          "battery": "super-light-purple",
+          "humidity": "light-blue",
+          "mqtt_consumer.humidity": "blue",
+          "mqtt_consumer.temperature": "yellow"
+        },
+        "bars": false,
+        "dashLength": 10,
+        "dashes": false,
+        "datasource": "InfluxDB",
+        "description": "",
+        "fieldConfig": {
+          "defaults": {
+            "unit": ""
+          },
+          "overrides": []
+        },
+        "fill": 1,
+        "fillGradient": 2,
+        "gridPos": {
+          "h": 9,
+          "w": 12,
+          "x": 0,
+          "y": 25
+        },
+        "hiddenSeries": false,
+        "id": 31,
+        "legend": {
+          "avg": false,
+          "current": false,
+          "max": false,
+          "min": false,
+          "rightSide": false,
+          "show": true,
+          "total": false,
+          "values": false
+        },
+        "lines": true,
+        "linewidth": 2,
+        "maxPerRow": 2,
+        "nullPointMode": "null",
+        "options": {
+          "alertThreshold": false
+        },
+        "percentage": false,
+        "pluginVersion": "7.5.4",
+        "pointradius": 1,
+        "points": true,
+        "renderer": "flot",
+        "repeatDirection": "h",
+        "repeatIteration": 1618427025176,
+        "repeatPanelId": 6,
+        "scopedVars": {
+          "TempSensors": {
+            "selected": false,
+            "text": "parent_room.temp",
+            "value": "parent_room.temp"
+          }
+        },
+        "seriesOverrides": [
+          {
+            "$$hashKey": "object:263",
+            "alias": "bathroom.temp",
+            "yaxis": 1
+          },
+          {
+            "$$hashKey": "object:264",
+            "alias": "mqtt_consumer.humidity",
+            "yaxis": 2
+          },
+          {
+            "$$hashKey": "object:265",
+            "alias": "humidity",
+            "yaxis": 2
+          },
+          {
+            "$$hashKey": "object:146",
+            "alias": "battery",
+            "yaxis": 2
+          }
+        ],
+        "spaceLength": 10,
+        "stack": false,
+        "steppedLine": false,
+        "targets": [
+          {
+            "alias": "$col",
+            "groupBy": [],
+            "measurement": "mqtt_consumer",
+            "orderByTime": "ASC",
+            "policy": "autogen",
+            "query": "SELECT \"temperature\" AS \"temperature\", \"humidity\" AS \"humidity\" FROM \"autogen\".\"mqtt_consumer\" WHERE (\"device_friendlyName\" = 'bathroom.temp') AND $timeFilter GROUP BY \"device_friendlyName\"",
+            "rawQuery": false,
+            "refId": "A",
+            "resultFormat": "time_series",
+            "select": [
+              [
+                {
+                  "params": [
+                    "temperature"
+                  ],
+                  "type": "field"
+                },
+                {
+                  "params": [
+                    "temperature"
+                  ],
+                  "type": "alias"
+                }
+              ],
+              [
+                {
+                  "params": [
+                    "humidity"
+                  ],
+                  "type": "field"
+                },
+                {
+                  "params": [
+                    "humidity"
+                  ],
+                  "type": "alias"
+                }
+              ]
+            ],
+            "tags": [
+              {
+                "key": "device_friendlyName",
+                "operator": "=~",
+                "value": "/^$TempSensors$/"
+              }
+            ]
+          }
+        ],
+        "thresholds": [],
+        "timeFrom": null,
+        "timeRegions": [],
+        "timeShift": null,
+        "title": "$TempSensors",
+        "tooltip": {
+          "shared": true,
+          "sort": 0,
+          "value_type": "individual"
+        },
+        "type": "graph",
+        "xaxis": {
+          "buckets": null,
+          "mode": "time",
+          "name": null,
+          "show": true,
+          "values": []
+        },
+        "yaxes": [
+          {
+            "$$hashKey": "object:136",
+            "decimals": 1,
+            "format": "celsius",
+            "label": "Temperature",
+            "logBase": 1,
+            "max": "40",
+            "min": "0",
+            "show": true
+          },
+          {
+            "$$hashKey": "object:137",
+            "decimals": 0,
+            "format": "humidity",
+            "label": "Humidity",
+            "logBase": 1,
+            "max": "100",
+            "min": "30",
+            "show": true
+          }
+        ],
+        "yaxis": {
+          "align": false,
+          "alignLevel": null
+        }
+      },
+      {
+        "aliasColors": {
+          "battery": "super-light-purple",
+          "humidity": "light-blue",
+          "mqtt_consumer.humidity": "blue",
+          "mqtt_consumer.temperature": "yellow"
+        },
+        "bars": false,
+        "dashLength": 10,
+        "dashes": false,
+        "datasource": "InfluxDB",
+        "description": "",
+        "fieldConfig": {
+          "defaults": {
+            "unit": ""
+          },
+          "overrides": []
+        },
+        "fill": 1,
+        "fillGradient": 2,
+        "gridPos": {
+          "h": 9,
+          "w": 12,
+          "x": 12,
+          "y": 25
+        },
+        "hiddenSeries": false,
+        "id": 32,
+        "legend": {
+          "avg": false,
+          "current": false,
+          "max": false,
+          "min": false,
+          "rightSide": false,
+          "show": true,
+          "total": false,
+          "values": false
+        },
+        "lines": true,
+        "linewidth": 2,
+        "maxPerRow": 2,
+        "nullPointMode": "null",
+        "options": {
+          "alertThreshold": false
+        },
+        "percentage": false,
+        "pluginVersion": "7.5.4",
+        "pointradius": 1,
+        "points": true,
+        "renderer": "flot",
+        "repeatDirection": "h",
+        "repeatIteration": 1618427025176,
+        "repeatPanelId": 6,
+        "scopedVars": {
+          "TempSensors": {
+            "selected": false,
+            "text": "terrasse_back.temp",
+            "value": "terrasse_back.temp"
+          }
+        },
+        "seriesOverrides": [
+          {
+            "$$hashKey": "object:263",
+            "alias": "bathroom.temp",
+            "yaxis": 1
+          },
+          {
+            "$$hashKey": "object:264",
+            "alias": "mqtt_consumer.humidity",
+            "yaxis": 2
+          },
+          {
+            "$$hashKey": "object:265",
+            "alias": "humidity",
+            "yaxis": 2
+          },
+          {
+            "$$hashKey": "object:146",
+            "alias": "battery",
+            "yaxis": 2
+          }
+        ],
+        "spaceLength": 10,
+        "stack": false,
+        "steppedLine": false,
+        "targets": [
+          {
+            "alias": "$col",
+            "groupBy": [],
+            "measurement": "mqtt_consumer",
+            "orderByTime": "ASC",
+            "policy": "autogen",
+            "query": "SELECT \"temperature\" AS \"temperature\", \"humidity\" AS \"humidity\" FROM \"autogen\".\"mqtt_consumer\" WHERE (\"device_friendlyName\" = 'bathroom.temp') AND $timeFilter GROUP BY \"device_friendlyName\"",
+            "rawQuery": false,
+            "refId": "A",
+            "resultFormat": "time_series",
+            "select": [
+              [
+                {
+                  "params": [
+                    "temperature"
+                  ],
+                  "type": "field"
+                },
+                {
+                  "params": [
+                    "temperature"
+                  ],
+                  "type": "alias"
+                }
+              ],
+              [
+                {
+                  "params": [
+                    "humidity"
+                  ],
+                  "type": "field"
+                },
+                {
+                  "params": [
+                    "humidity"
+                  ],
+                  "type": "alias"
+                }
+              ]
+            ],
+            "tags": [
+              {
+                "key": "device_friendlyName",
+                "operator": "=~",
+                "value": "/^$TempSensors$/"
+              }
+            ]
+          }
+        ],
+        "thresholds": [],
+        "timeFrom": null,
+        "timeRegions": [],
+        "timeShift": null,
+        "title": "$TempSensors",
+        "tooltip": {
+          "shared": true,
+          "sort": 0,
+          "value_type": "individual"
+        },
+        "type": "graph",
+        "xaxis": {
+          "buckets": null,
+          "mode": "time",
+          "name": null,
+          "show": true,
+          "values": []
+        },
+        "yaxes": [
+          {
+            "$$hashKey": "object:136",
+            "decimals": 1,
+            "format": "celsius",
+            "label": "Temperature",
+            "logBase": 1,
+            "max": "40",
+            "min": "0",
+            "show": true
+          },
+          {
+            "$$hashKey": "object:137",
+            "decimals": 0,
+            "format": "humidity",
+            "label": "Humidity",
+            "logBase": 1,
+            "max": "100",
+            "min": "30",
+            "show": true
+          }
+        ],
+        "yaxis": {
+          "align": false,
+          "alignLevel": null
+        }
+      },
+      {
+        "aliasColors": {
+          "battery": "super-light-purple",
+          "humidity": "light-blue",
+          "mqtt_consumer.humidity": "blue",
+          "mqtt_consumer.temperature": "yellow"
+        },
+        "bars": false,
+        "dashLength": 10,
+        "dashes": false,
+        "datasource": "InfluxDB",
+        "description": "",
+        "fieldConfig": {
+          "defaults": {
+            "unit": ""
+          },
+          "overrides": []
+        },
+        "fill": 1,
+        "fillGradient": 2,
+        "gridPos": {
+          "h": 9,
+          "w": 12,
+          "x": 0,
+          "y": 34
+        },
+        "hiddenSeries": false,
+        "id": 33,
+        "legend": {
+          "avg": false,
+          "current": false,
+          "max": false,
+          "min": false,
+          "rightSide": false,
+          "show": true,
+          "total": false,
+          "values": false
+        },
+        "lines": true,
+        "linewidth": 2,
+        "maxPerRow": 2,
+        "nullPointMode": "null",
+        "options": {
+          "alertThreshold": false
+        },
+        "percentage": false,
+        "pluginVersion": "7.5.4",
+        "pointradius": 1,
+        "points": true,
+        "renderer": "flot",
+        "repeatDirection": "h",
+        "repeatIteration": 1618427025176,
+        "repeatPanelId": 6,
+        "scopedVars": {
+          "TempSensors": {
+            "selected": false,
+            "text": "terrasse_front.temp",
+            "value": "terrasse_front.temp"
+          }
+        },
+        "seriesOverrides": [
+          {
+            "$$hashKey": "object:263",
+            "alias": "bathroom.temp",
+            "yaxis": 1
+          },
+          {
+            "$$hashKey": "object:264",
+            "alias": "mqtt_consumer.humidity",
+            "yaxis": 2
+          },
+          {
+            "$$hashKey": "object:265",
+            "alias": "humidity",
+            "yaxis": 2
+          },
+          {
+            "$$hashKey": "object:146",
+            "alias": "battery",
+            "yaxis": 2
+          }
+        ],
+        "spaceLength": 10,
+        "stack": false,
+        "steppedLine": false,
+        "targets": [
+          {
+            "alias": "$col",
+            "groupBy": [],
+            "measurement": "mqtt_consumer",
+            "orderByTime": "ASC",
+            "policy": "autogen",
+            "query": "SELECT \"temperature\" AS \"temperature\", \"humidity\" AS \"humidity\" FROM \"autogen\".\"mqtt_consumer\" WHERE (\"device_friendlyName\" = 'bathroom.temp') AND $timeFilter GROUP BY \"device_friendlyName\"",
+            "rawQuery": false,
+            "refId": "A",
+            "resultFormat": "time_series",
+            "select": [
+              [
+                {
+                  "params": [
+                    "temperature"
+                  ],
+                  "type": "field"
+                },
+                {
+                  "params": [
+                    "temperature"
+                  ],
+                  "type": "alias"
+                }
+              ],
+              [
+                {
+                  "params": [
+                    "humidity"
+                  ],
+                  "type": "field"
+                },
+                {
+                  "params": [
+                    "humidity"
+                  ],
+                  "type": "alias"
+                }
+              ]
+            ],
+            "tags": [
+              {
+                "key": "device_friendlyName",
+                "operator": "=~",
+                "value": "/^$TempSensors$/"
+              }
+            ]
+          }
+        ],
+        "thresholds": [],
+        "timeFrom": null,
+        "timeRegions": [],
+        "timeShift": null,
+        "title": "$TempSensors",
+        "tooltip": {
+          "shared": true,
+          "sort": 0,
+          "value_type": "individual"
+        },
+        "type": "graph",
+        "xaxis": {
+          "buckets": null,
+          "mode": "time",
+          "name": null,
+          "show": true,
+          "values": []
+        },
+        "yaxes": [
+          {
+            "$$hashKey": "object:136",
+            "decimals": 1,
+            "format": "celsius",
+            "label": "Temperature",
+            "logBase": 1,
+            "max": "40",
+            "min": "0",
+            "show": true
+          },
+          {
+            "$$hashKey": "object:137",
+            "decimals": 0,
+            "format": "humidity",
+            "label": "Humidity",
+            "logBase": 1,
+            "max": "100",
+            "min": "30",
+            "show": true
+          }
+        ],
+        "yaxis": {
+          "align": false,
+          "alignLevel": null
+        }
+      },
+      {
+        "aliasColors": {
+          "battery": "super-light-purple",
+          "humidity": "light-blue",
+          "mqtt_consumer.humidity": "blue",
+          "mqtt_consumer.temperature": "yellow"
+        },
+        "bars": false,
+        "dashLength": 10,
+        "dashes": false,
+        "datasource": "InfluxDB",
+        "description": "",
+        "fieldConfig": {
+          "defaults": {
+            "unit": ""
+          },
+          "overrides": []
+        },
+        "fill": 1,
+        "fillGradient": 2,
+        "gridPos": {
+          "h": 9,
+          "w": 12,
+          "x": 12,
+          "y": 34
+        },
+        "hiddenSeries": false,
+        "id": 34,
+        "legend": {
+          "avg": false,
+          "current": false,
+          "max": false,
+          "min": false,
+          "rightSide": false,
+          "show": true,
+          "total": false,
+          "values": false
+        },
+        "lines": true,
+        "linewidth": 2,
+        "maxPerRow": 2,
+        "nullPointMode": "null",
+        "options": {
+          "alertThreshold": false
+        },
+        "percentage": false,
+        "pluginVersion": "7.5.4",
+        "pointradius": 1,
+        "points": true,
+        "renderer": "flot",
+        "repeatDirection": "h",
+        "repeatIteration": 1618427025176,
+        "repeatPanelId": 6,
+        "scopedVars": {
+          "TempSensors": {
+            "selected": false,
+            "text": "toilet.temp",
+            "value": "toilet.temp"
+          }
+        },
+        "seriesOverrides": [
+          {
+            "$$hashKey": "object:263",
+            "alias": "bathroom.temp",
+            "yaxis": 1
+          },
+          {
+            "$$hashKey": "object:264",
+            "alias": "mqtt_consumer.humidity",
+            "yaxis": 2
+          },
+          {
+            "$$hashKey": "object:265",
+            "alias": "humidity",
+            "yaxis": 2
+          },
+          {
+            "$$hashKey": "object:146",
+            "alias": "battery",
+            "yaxis": 2
+          }
+        ],
+        "spaceLength": 10,
+        "stack": false,
+        "steppedLine": false,
+        "targets": [
+          {
+            "alias": "$col",
+            "groupBy": [],
+            "measurement": "mqtt_consumer",
+            "orderByTime": "ASC",
+            "policy": "autogen",
+            "query": "SELECT \"temperature\" AS \"temperature\", \"humidity\" AS \"humidity\" FROM \"autogen\".\"mqtt_consumer\" WHERE (\"device_friendlyName\" = 'bathroom.temp') AND $timeFilter GROUP BY \"device_friendlyName\"",
+            "rawQuery": false,
+            "refId": "A",
+            "resultFormat": "time_series",
+            "select": [
+              [
+                {
+                  "params": [
+                    "temperature"
+                  ],
+                  "type": "field"
+                },
+                {
+                  "params": [
+                    "temperature"
+                  ],
+                  "type": "alias"
+                }
+              ],
+              [
+                {
+                  "params": [
+                    "humidity"
+                  ],
+                  "type": "field"
+                },
+                {
+                  "params": [
+                    "humidity"
+                  ],
+                  "type": "alias"
+                }
+              ]
+            ],
+            "tags": [
+              {
+                "key": "device_friendlyName",
+                "operator": "=~",
+                "value": "/^$TempSensors$/"
+              }
+            ]
+          }
+        ],
+        "thresholds": [],
+        "timeFrom": null,
+        "timeRegions": [],
+        "timeShift": null,
+        "title": "$TempSensors",
+        "tooltip": {
+          "shared": true,
+          "sort": 0,
+          "value_type": "individual"
+        },
+        "type": "graph",
+        "xaxis": {
+          "buckets": null,
+          "mode": "time",
+          "name": null,
+          "show": true,
+          "values": []
+        },
+        "yaxes": [
+          {
+            "$$hashKey": "object:136",
+            "decimals": 1,
+            "format": "celsius",
+            "label": "Temperature",
+            "logBase": 1,
+            "max": "40",
+            "min": "0",
+            "show": true
+          },
+          {
+            "$$hashKey": "object:137",
+            "decimals": 0,
+            "format": "humidity",
+            "label": "Humidity",
+            "logBase": 1,
+            "max": "100",
+            "min": "30",
+            "show": true
+          }
+        ],
+        "yaxis": {
+          "align": false,
+          "alignLevel": null
+        }
+      },
+      {
+        "collapsed": false,
+        "datasource": null,
+        "gridPos": {
+          "h": 1,
+          "w": 24,
+          "x": 0,
+          "y": 43
+        },
+        "id": 25,
+        "panels": [],
+        "title": "Luminosities",
+        "type": "row"
+      },
+      {
+        "aliasColors": {
+          "humidity": "light-blue",
+          "illuminance_lux": "yellow",
+          "mqtt_consumer.humidity": "blue",
+          "mqtt_consumer.temperature": "yellow"
+        },
+        "bars": false,
+        "dashLength": 10,
+        "dashes": false,
+        "datasource": "InfluxDB",
+        "description": "",
+        "fieldConfig": {
+          "defaults": {
+            "unit": "lux"
+          },
+          "overrides": []
+        },
+        "fill": 1,
+        "fillGradient": 2,
+        "gridPos": {
+          "h": 9,
+          "w": 12,
+          "x": 0,
+          "y": 44
+        },
+        "hiddenSeries": false,
+        "id": 27,
+        "legend": {
+          "avg": false,
+          "current": false,
+          "max": false,
+          "min": false,
+          "rightSide": false,
+          "show": true,
+          "total": false,
+          "values": false
+        },
+        "lines": true,
+        "linewidth": 2,
+        "maxPerRow": 2,
+        "nullPointMode": "null",
+        "options": {
+          "alertThreshold": false
+        },
+        "percentage": false,
+        "pluginVersion": "7.5.4",
+        "pointradius": 1,
+        "points": true,
+        "renderer": "flot",
+        "repeat": "LumiSensors",
+        "repeatDirection": "h",
+        "scopedVars": {
+          "LumiSensors": {
+            "selected": false,
+            "text": "bathroom.presence",
+            "value": "bathroom.presence"
+          }
+        },
+        "seriesOverrides": [
+          {
+            "$$hashKey": "object:135",
+            "alias": "bathroom.temp",
+            "yaxis": 1
+          },
+          {
+            "$$hashKey": "object:136",
+            "alias": "mqtt_consumer.humidity",
+            "yaxis": 2
+          },
+          {
+            "$$hashKey": "object:137",
+            "alias": "humidity",
+            "yaxis": 2
+          },
+          {
+            "$$hashKey": "object:138",
+            "alias": "illuminance_lux",
+            "yaxis": 1
+          }
+        ],
+        "spaceLength": 10,
+        "stack": false,
+        "steppedLine": false,
+        "targets": [
+          {
+            "alias": "$col",
+            "groupBy": [],
+            "measurement": "mqtt_consumer",
+            "orderByTime": "ASC",
+            "policy": "autogen",
+            "query": "SELECT \"temperature\" AS \"temperature\", \"humidity\" AS \"humidity\" FROM \"autogen\".\"mqtt_consumer\" WHERE (\"device_friendlyName\" = 'bathroom.temp') AND $timeFilter GROUP BY \"device_friendlyName\"",
+            "rawQuery": false,
+            "refId": "A",
+            "resultFormat": "time_series",
+            "select": [
+              [
+                {
+                  "params": [
+                    "illuminance_lux"
+                  ],
+                  "type": "field"
+                },
+                {
+                  "params": [
+                    "illuminance_lux"
+                  ],
+                  "type": "alias"
+                }
+              ]
+            ],
+            "tags": [
+              {
+                "key": "device_friendlyName",
+                "operator": "=~",
+                "value": "/^$LumiSensors$/"
+              }
+            ]
+          }
+        ],
+        "thresholds": [],
+        "timeFrom": null,
+        "timeRegions": [],
+        "timeShift": null,
+        "title": "$LumiSensors",
+        "tooltip": {
+          "shared": true,
+          "sort": 0,
+          "value_type": "individual"
+        },
+        "type": "graph",
+        "xaxis": {
+          "buckets": null,
+          "mode": "time",
+          "name": null,
+          "show": true,
+          "values": []
+        },
+        "yaxes": [
+          {
+            "$$hashKey": "object:136",
+            "decimals": 0,
+            "format": "lux",
+            "label": "",
+            "logBase": 1,
+            "max": "150",
+            "min": null,
+            "show": true
+          },
+          {
+            "$$hashKey": "object:137",
+            "decimals": 0,
+            "format": "celsius",
+            "label": "",
+            "logBase": 1,
+            "max": null,
+            "min": null,
+            "show": false
+          }
+        ],
+        "yaxis": {
+          "align": false,
+          "alignLevel": null
+        }
+      },
+      {
+        "aliasColors": {
+          "humidity": "light-blue",
+          "illuminance_lux": "yellow",
+          "mqtt_consumer.humidity": "blue",
+          "mqtt_consumer.temperature": "yellow"
+        },
+        "bars": false,
+        "dashLength": 10,
+        "dashes": false,
+        "datasource": "InfluxDB",
+        "description": "",
+        "fieldConfig": {
+          "defaults": {
+            "unit": "lux"
+          },
+          "overrides": []
+        },
+        "fill": 1,
+        "fillGradient": 2,
+        "gridPos": {
+          "h": 9,
+          "w": 12,
+          "x": 12,
+          "y": 44
+        },
+        "hiddenSeries": false,
+        "id": 35,
+        "legend": {
+          "avg": false,
+          "current": false,
+          "max": false,
+          "min": false,
+          "rightSide": false,
+          "show": true,
+          "total": false,
+          "values": false
+        },
+        "lines": true,
+        "linewidth": 2,
+        "maxPerRow": 2,
+        "nullPointMode": "null",
+        "options": {
+          "alertThreshold": false
+        },
+        "percentage": false,
+        "pluginVersion": "7.5.4",
+        "pointradius": 1,
+        "points": true,
+        "renderer": "flot",
+        "repeatDirection": "h",
+        "repeatIteration": 1618427025176,
+        "repeatPanelId": 27,
+        "scopedVars": {
+          "LumiSensors": {
+            "selected": false,
+            "text": "couloir.presence",
+            "value": "couloir.presence"
+          }
+        },
+        "seriesOverrides": [
+          {
+            "$$hashKey": "object:135",
+            "alias": "bathroom.temp",
+            "yaxis": 1
+          },
+          {
+            "$$hashKey": "object:136",
+            "alias": "mqtt_consumer.humidity",
+            "yaxis": 2
+          },
+          {
+            "$$hashKey": "object:137",
+            "alias": "humidity",
+            "yaxis": 2
+          },
+          {
+            "$$hashKey": "object:138",
+            "alias": "illuminance_lux",
+            "yaxis": 1
+          }
+        ],
+        "spaceLength": 10,
+        "stack": false,
+        "steppedLine": false,
+        "targets": [
+          {
+            "alias": "$col",
+            "groupBy": [],
+            "measurement": "mqtt_consumer",
+            "orderByTime": "ASC",
+            "policy": "autogen",
+            "query": "SELECT \"temperature\" AS \"temperature\", \"humidity\" AS \"humidity\" FROM \"autogen\".\"mqtt_consumer\" WHERE (\"device_friendlyName\" = 'bathroom.temp') AND $timeFilter GROUP BY \"device_friendlyName\"",
+            "rawQuery": false,
+            "refId": "A",
+            "resultFormat": "time_series",
+            "select": [
+              [
+                {
+                  "params": [
+                    "illuminance_lux"
+                  ],
+                  "type": "field"
+                },
+                {
+                  "params": [
+                    "illuminance_lux"
+                  ],
+                  "type": "alias"
+                }
+              ]
+            ],
+            "tags": [
+              {
+                "key": "device_friendlyName",
+                "operator": "=~",
+                "value": "/^$LumiSensors$/"
+              }
+            ]
+          }
+        ],
+        "thresholds": [],
+        "timeFrom": null,
+        "timeRegions": [],
+        "timeShift": null,
+        "title": "$LumiSensors",
+        "tooltip": {
+          "shared": true,
+          "sort": 0,
+          "value_type": "individual"
+        },
+        "type": "graph",
+        "xaxis": {
+          "buckets": null,
+          "mode": "time",
+          "name": null,
+          "show": true,
+          "values": []
+        },
+        "yaxes": [
+          {
+            "$$hashKey": "object:136",
+            "decimals": 0,
+            "format": "lux",
+            "label": "",
+            "logBase": 1,
+            "max": "150",
+            "min": null,
+            "show": true
+          },
+          {
+            "$$hashKey": "object:137",
+            "decimals": 0,
+            "format": "celsius",
+            "label": "",
+            "logBase": 1,
+            "max": null,
+            "min": null,
+            "show": false
+          }
+        ],
+        "yaxis": {
+          "align": false,
+          "alignLevel": null
+        }
+      },
+      {
+        "aliasColors": {
+          "humidity": "light-blue",
+          "illuminance_lux": "yellow",
+          "mqtt_consumer.humidity": "blue",
+          "mqtt_consumer.temperature": "yellow"
+        },
+        "bars": false,
+        "dashLength": 10,
+        "dashes": false,
+        "datasource": "InfluxDB",
+        "description": "",
+        "fieldConfig": {
+          "defaults": {
+            "unit": "lux"
+          },
+          "overrides": []
+        },
+        "fill": 1,
+        "fillGradient": 2,
+        "gridPos": {
+          "h": 9,
+          "w": 12,
+          "x": 0,
+          "y": 53
+        },
+        "hiddenSeries": false,
+        "id": 36,
+        "legend": {
+          "avg": false,
+          "current": false,
+          "max": false,
+          "min": false,
+          "rightSide": false,
+          "show": true,
+          "total": false,
+          "values": false
+        },
+        "lines": true,
+        "linewidth": 2,
+        "maxPerRow": 2,
+        "nullPointMode": "null",
+        "options": {
+          "alertThreshold": false
+        },
+        "percentage": false,
+        "pluginVersion": "7.5.4",
+        "pointradius": 1,
+        "points": true,
+        "renderer": "flot",
+        "repeatDirection": "h",
+        "repeatIteration": 1618427025176,
+        "repeatPanelId": 27,
+        "scopedVars": {
+          "LumiSensors": {
+            "selected": false,
+            "text": "living_room.lumi.1",
+            "value": "living_room.lumi.1"
+          }
+        },
+        "seriesOverrides": [
+          {
+            "$$hashKey": "object:135",
+            "alias": "bathroom.temp",
+            "yaxis": 1
+          },
+          {
+            "$$hashKey": "object:136",
+            "alias": "mqtt_consumer.humidity",
+            "yaxis": 2
+          },
+          {
+            "$$hashKey": "object:137",
+            "alias": "humidity",
+            "yaxis": 2
+          },
+          {
+            "$$hashKey": "object:138",
+            "alias": "illuminance_lux",
+            "yaxis": 1
+          }
+        ],
+        "spaceLength": 10,
+        "stack": false,
+        "steppedLine": false,
+        "targets": [
+          {
+            "alias": "$col",
+            "groupBy": [],
+            "measurement": "mqtt_consumer",
+            "orderByTime": "ASC",
+            "policy": "autogen",
+            "query": "SELECT \"temperature\" AS \"temperature\", \"humidity\" AS \"humidity\" FROM \"autogen\".\"mqtt_consumer\" WHERE (\"device_friendlyName\" = 'bathroom.temp') AND $timeFilter GROUP BY \"device_friendlyName\"",
+            "rawQuery": false,
+            "refId": "A",
+            "resultFormat": "time_series",
+            "select": [
+              [
+                {
+                  "params": [
+                    "illuminance_lux"
+                  ],
+                  "type": "field"
+                },
+                {
+                  "params": [
+                    "illuminance_lux"
+                  ],
+                  "type": "alias"
+                }
+              ]
+            ],
+            "tags": [
+              {
+                "key": "device_friendlyName",
+                "operator": "=~",
+                "value": "/^$LumiSensors$/"
+              }
+            ]
+          }
+        ],
+        "thresholds": [],
+        "timeFrom": null,
+        "timeRegions": [],
+        "timeShift": null,
+        "title": "$LumiSensors",
+        "tooltip": {
+          "shared": true,
+          "sort": 0,
+          "value_type": "individual"
+        },
+        "type": "graph",
+        "xaxis": {
+          "buckets": null,
+          "mode": "time",
+          "name": null,
+          "show": true,
+          "values": []
+        },
+        "yaxes": [
+          {
+            "$$hashKey": "object:136",
+            "decimals": 0,
+            "format": "lux",
+            "label": "",
+            "logBase": 1,
+            "max": "150",
+            "min": null,
+            "show": true
+          },
+          {
+            "$$hashKey": "object:137",
+            "decimals": 0,
+            "format": "celsius",
+            "label": "",
+            "logBase": 1,
+            "max": null,
+            "min": null,
+            "show": false
+          }
+        ],
+        "yaxis": {
+          "align": false,
+          "alignLevel": null
+        }
+      },
+      {
+        "aliasColors": {
+          "humidity": "light-blue",
+          "illuminance_lux": "yellow",
+          "mqtt_consumer.humidity": "blue",
+          "mqtt_consumer.temperature": "yellow"
+        },
+        "bars": false,
+        "dashLength": 10,
+        "dashes": false,
+        "datasource": "InfluxDB",
+        "description": "",
+        "fieldConfig": {
+          "defaults": {
+            "unit": "lux"
+          },
+          "overrides": []
+        },
+        "fill": 1,
+        "fillGradient": 2,
+        "gridPos": {
+          "h": 9,
+          "w": 12,
+          "x": 12,
+          "y": 53
+        },
+        "hiddenSeries": false,
+        "id": 37,
+        "legend": {
+          "avg": false,
+          "current": false,
+          "max": false,
+          "min": false,
+          "rightSide": false,
+          "show": true,
+          "total": false,
+          "values": false
+        },
+        "lines": true,
+        "linewidth": 2,
+        "maxPerRow": 2,
+        "nullPointMode": "null",
+        "options": {
+          "alertThreshold": false
+        },
+        "percentage": false,
+        "pluginVersion": "7.5.4",
+        "pointradius": 1,
+        "points": true,
+        "renderer": "flot",
+        "repeatDirection": "h",
+        "repeatIteration": 1618427025176,
+        "repeatPanelId": 27,
+        "scopedVars": {
+          "LumiSensors": {
+            "selected": false,
+            "text": "living_room.lumi.2",
+            "value": "living_room.lumi.2"
+          }
+        },
+        "seriesOverrides": [
+          {
+            "$$hashKey": "object:135",
+            "alias": "bathroom.temp",
+            "yaxis": 1
+          },
+          {
+            "$$hashKey": "object:136",
+            "alias": "mqtt_consumer.humidity",
+            "yaxis": 2
+          },
+          {
+            "$$hashKey": "object:137",
+            "alias": "humidity",
+            "yaxis": 2
+          },
+          {
+            "$$hashKey": "object:138",
+            "alias": "illuminance_lux",
+            "yaxis": 1
+          }
+        ],
+        "spaceLength": 10,
+        "stack": false,
+        "steppedLine": false,
+        "targets": [
+          {
+            "alias": "$col",
+            "groupBy": [],
+            "measurement": "mqtt_consumer",
+            "orderByTime": "ASC",
+            "policy": "autogen",
+            "query": "SELECT \"temperature\" AS \"temperature\", \"humidity\" AS \"humidity\" FROM \"autogen\".\"mqtt_consumer\" WHERE (\"device_friendlyName\" = 'bathroom.temp') AND $timeFilter GROUP BY \"device_friendlyName\"",
+            "rawQuery": false,
+            "refId": "A",
+            "resultFormat": "time_series",
+            "select": [
+              [
+                {
+                  "params": [
+                    "illuminance_lux"
+                  ],
+                  "type": "field"
+                },
+                {
+                  "params": [
+                    "illuminance_lux"
+                  ],
+                  "type": "alias"
+                }
+              ]
+            ],
+            "tags": [
+              {
+                "key": "device_friendlyName",
+                "operator": "=~",
+                "value": "/^$LumiSensors$/"
+              }
+            ]
+          }
+        ],
+        "thresholds": [],
+        "timeFrom": null,
+        "timeRegions": [],
+        "timeShift": null,
+        "title": "$LumiSensors",
+        "tooltip": {
+          "shared": true,
+          "sort": 0,
+          "value_type": "individual"
+        },
+        "type": "graph",
+        "xaxis": {
+          "buckets": null,
+          "mode": "time",
+          "name": null,
+          "show": true,
+          "values": []
+        },
+        "yaxes": [
+          {
+            "$$hashKey": "object:136",
+            "decimals": 0,
+            "format": "lux",
+            "label": "",
+            "logBase": 1,
+            "max": "150",
+            "min": null,
+            "show": true
+          },
+          {
+            "$$hashKey": "object:137",
+            "decimals": 0,
+            "format": "celsius",
+            "label": "",
+            "logBase": 1,
+            "max": null,
+            "min": null,
+            "show": false
+          }
+        ],
+        "yaxis": {
+          "align": false,
+          "alignLevel": null
+        }
+      },
+      {
+        "aliasColors": {
+          "humidity": "light-blue",
+          "illuminance_lux": "yellow",
+          "mqtt_consumer.humidity": "blue",
+          "mqtt_consumer.temperature": "yellow"
+        },
+        "bars": false,
+        "dashLength": 10,
+        "dashes": false,
+        "datasource": "InfluxDB",
+        "description": "",
+        "fieldConfig": {
+          "defaults": {
+            "unit": "lux"
+          },
+          "overrides": []
+        },
+        "fill": 1,
+        "fillGradient": 2,
+        "gridPos": {
+          "h": 9,
+          "w": 12,
+          "x": 0,
+          "y": 62
+        },
+        "hiddenSeries": false,
+        "id": 38,
+        "legend": {
+          "avg": false,
+          "current": false,
+          "max": false,
+          "min": false,
+          "rightSide": false,
+          "show": true,
+          "total": false,
+          "values": false
+        },
+        "lines": true,
+        "linewidth": 2,
+        "maxPerRow": 2,
+        "nullPointMode": "null",
+        "options": {
+          "alertThreshold": false
+        },
+        "percentage": false,
+        "pluginVersion": "7.5.4",
+        "pointradius": 1,
+        "points": true,
+        "renderer": "flot",
+        "repeatDirection": "h",
+        "repeatIteration": 1618427025176,
+        "repeatPanelId": 27,
+        "scopedVars": {
+          "LumiSensors": {
+            "selected": false,
+            "text": "living_room.presence",
+            "value": "living_room.presence"
+          }
+        },
+        "seriesOverrides": [
+          {
+            "$$hashKey": "object:135",
+            "alias": "bathroom.temp",
+            "yaxis": 1
+          },
+          {
+            "$$hashKey": "object:136",
+            "alias": "mqtt_consumer.humidity",
+            "yaxis": 2
+          },
+          {
+            "$$hashKey": "object:137",
+            "alias": "humidity",
+            "yaxis": 2
+          },
+          {
+            "$$hashKey": "object:138",
+            "alias": "illuminance_lux",
+            "yaxis": 1
+          }
+        ],
+        "spaceLength": 10,
+        "stack": false,
+        "steppedLine": false,
+        "targets": [
+          {
+            "alias": "$col",
+            "groupBy": [],
+            "measurement": "mqtt_consumer",
+            "orderByTime": "ASC",
+            "policy": "autogen",
+            "query": "SELECT \"temperature\" AS \"temperature\", \"humidity\" AS \"humidity\" FROM \"autogen\".\"mqtt_consumer\" WHERE (\"device_friendlyName\" = 'bathroom.temp') AND $timeFilter GROUP BY \"device_friendlyName\"",
+            "rawQuery": false,
+            "refId": "A",
+            "resultFormat": "time_series",
+            "select": [
+              [
+                {
+                  "params": [
+                    "illuminance_lux"
+                  ],
+                  "type": "field"
+                },
+                {
+                  "params": [
+                    "illuminance_lux"
+                  ],
+                  "type": "alias"
+                }
+              ]
+            ],
+            "tags": [
+              {
+                "key": "device_friendlyName",
+                "operator": "=~",
+                "value": "/^$LumiSensors$/"
+              }
+            ]
+          }
+        ],
+        "thresholds": [],
+        "timeFrom": null,
+        "timeRegions": [],
+        "timeShift": null,
+        "title": "$LumiSensors",
+        "tooltip": {
+          "shared": true,
+          "sort": 0,
+          "value_type": "individual"
+        },
+        "type": "graph",
+        "xaxis": {
+          "buckets": null,
+          "mode": "time",
+          "name": null,
+          "show": true,
+          "values": []
+        },
+        "yaxes": [
+          {
+            "$$hashKey": "object:136",
+            "decimals": 0,
+            "format": "lux",
+            "label": "",
+            "logBase": 1,
+            "max": "150",
+            "min": null,
+            "show": true
+          },
+          {
+            "$$hashKey": "object:137",
+            "decimals": 0,
+            "format": "celsius",
+            "label": "",
+            "logBase": 1,
+            "max": null,
+            "min": null,
+            "show": false
+          }
+        ],
+        "yaxis": {
+          "align": false,
+          "alignLevel": null
+        }
+      }
+    ],
+    "refresh": false,
+    "schemaVersion": 27,
+    "style": "dark",
+    "tags": [],
+    "templating": {
+      "list": [
+        {
+          "allValue": null,
+          "current": {
+            "selected": false,
+            "text": "All",
+            "value": "$__all"
+          },
+          "datasource": "InfluxDB",
+          "definition": "",
+          "description": null,
+          "error": null,
+          "hide": 2,
+          "includeAll": true,
+          "label": null,
+          "multi": false,
+          "name": "TempSensors",
+          "options": [],
+          "query": "SHOW TAG VALUES FROM mqtt_consumer WITH KEY=device_friendlyName WHERE \"device_friendlyName\" =~ /.temp/",
+          "refresh": 2,
+          "regex": "",
+          "skipUrlSync": false,
+          "sort": 0,
+          "tagValuesQuery": "",
+          "tags": [],
+          "tagsQuery": "",
+          "type": "query",
+          "useTags": false
+        },
+        {
+          "allValue": null,
+          "current": {
+            "selected": false,
+            "text": "All",
+            "value": "$__all"
+          },
+          "datasource": "InfluxDB",
+          "definition": "",
+          "description": null,
+          "error": null,
+          "hide": 2,
+          "includeAll": true,
+          "label": null,
+          "multi": false,
+          "name": "LumiSensors",
+          "options": [],
+          "query": "SHOW TAG VALUES FROM mqtt_consumer WITH KEY=device_friendlyName WHERE \"device_friendlyName\" =~ /.lumi/ OR  \"device_friendlyName\" =~ /.presence/",
+          "refresh": 2,
+          "regex": "",
+          "skipUrlSync": false,
+          "sort": 0,
+          "tagValuesQuery": "",
+          "tags": [],
+          "tagsQuery": "",
+          "type": "query",
+          "useTags": false
+        }
+      ]
+    },
+    "time": {
+      "from": "now-24h",
+      "to": "now"
+    },
+    "timepicker": {
+      "refresh_intervals": [
+        "5s",
+        "10s",
+        "30s",
+        "1m",
+        "5m",
+        "15m",
+        "30m",
+        "1h",
+        "2h",
+        "1d"
+      ]
+    },
+    "timezone": "browser",
+    "title": "Sensors metrics",
+    "uid": "z6wPuLRRs",
+    "version": 18
+  }
