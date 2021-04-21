@@ -126,5 +126,43 @@ services:
     volumes:
       - ./data/influxdb:/var/lib/influxdb
 
+  net_pihole:
+    image: pihole/pihole:v5.8
+    container_name: net_pihole
+    hostname: net_pihole
+    restart: always
+    depends_on:
+      - net_unbound
+    ports:
+      - 53:53/tcp
+      - 53:53/udp
+    environment:
+      - TZ=${TZ}
+      - DNS1=10.0.0.2#5053
+      - DNS2=10.0.0.2#5053
+      - WEBPASSWORD=${PI_HOLE_PASSWORD}
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.pihole.rule=Host(`pihole.${TRAEFIK_DOMAIN}`)
+      - traefik.http.routers.pihole.tls=true
+      - traefik.http.routers.pihole.tls.certresolver=myresolver
+      - traefik.http.services.pihole.loadbalancer.server.port=80
+    volumes:
+      - ./data/pihole/config/etc-pihole/:/etc/pihole/
+      - ./data/pihole/config/etc-dnsmasq.d/:/etc/dnsmasq.d/
 
+  net_unbound:
+    image: klutchell/unbound
+    container_name: net_unbound
+    hostname: net_unbound
+    restart: always
+    networks:
+      default:
+        ipv4_address: 10.0.0.2
 
+networks:
+  default:
+    ipam:
+     config:
+       - subnet: 10.0.0.0/24
+         ip_range: 10.0.0.128/25

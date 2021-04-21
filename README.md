@@ -9,6 +9,11 @@
   - Telegraf : metrics agent
   - Promtail : logs agent
 
+- Network
+  - pi-hole
+  - unbound
+  - cups
+
 ## Getting started
 
 Create folders requiring special permissions
