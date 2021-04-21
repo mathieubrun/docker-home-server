@@ -1,0 +1,28 @@
+server:
+  http_listen_port: 9090
+  grpc_listen_port: 0
+
+clients:
+  - url: http://db_loki:3100/api/prom/push
+
+positions:
+  filename: /data/positions.yaml
+
+scrape_configs:
+  - job_name: journal
+    journal:
+      max_age: 12h
+      path: /var/log/journal
+      labels:
+        job: systemd-journal
+    relabel_configs:
+      - source_labels:
+        - __journal__hostname
+        target_label: nodename
+      - source_labels:
+        - __journal__systemd_unit
+        target_label: unit
+      - source_labels:
+        - __journal_container_name
+        target_label: container_name
+

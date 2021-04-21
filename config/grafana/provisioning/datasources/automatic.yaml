@@ -1,0 +1,28 @@
+apiVersion: 1
+
+datasources:
+  - name: Loki
+    type: loki
+    access: proxy
+    url: http://db_loki:3100
+    password: ''
+    user: ''
+    database: ''
+    readOnly: false
+    jsonData:
+      maxLines: 5000
+  - name: InfluxDB
+    type: influxdb
+    access: proxy
+    url: http://db_influxdb:8086
+    secureJsonData:
+      password: $INFLUXDB_READ_PASSWORD
+    user: grafana
+    database: iot
+    readOnly: false
+  - name: InfluxDB-Internal
+    type: influxdb
+    access: proxy
+    url: http://db_influxdb:8086
+    database: _internal
+    readOnly: false

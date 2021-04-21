@@ -1,0 +1,130 @@
+version: '3.5'
+
+services:
+  net_ingress:
+    image: traefik:v2.4.8
+    container_name: net_ingress
+    hostname: net_ingress
+    restart: always
+    command:
+      # - --log.level=DEBUG
+      - --api
+      - --providers.docker=true
+      - --providers.docker.exposedbydefault=false
+      - --entrypoints.web.address=:80
+      - --entrypoints.websecure.address=:443
+      - --certificatesresolvers.myresolver.acme.dnschallenge=true
+      - --certificatesresolvers.myresolver.acme.dnschallenge.provider=digitalocean
+      # - --certificatesresolvers.myresolver.acme.caserver=https://acme-staging-v02.api.letsencrypt.org/directory
+      - --certificatesresolvers.myresolver.acme.email=${TRAEFIK_LETSENCRYPT_EMAIL}
+      - --certificatesresolvers.myresolver.acme.storage=/letsencrypt/acme.json
+      - --entrypoints.web.http.redirections.entryPoint.to=websecure
+      - --entrypoints.web.http.redirections.entryPoint.scheme=https
+      - --entrypoints.web.http.redirections.entrypoint.permanent=true
+      - --metrics.influxdb=true
+      - --metrics.influxdb.address=db_influxdb:8089
+      - --metrics.influxdb.database=iot
+      - --metrics.influxdb.username=writer
+      - --metrics.influxdb.password=${INFLUXDB_WRITE_PASSWORD}
+    environment:
+      - DO_AUTH_TOKEN
+    extra_hosts:
+      - host.docker.internal:10.0.0.1
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.traefik.rule=Host(`traefik.${TRAEFIK_DOMAIN}`)
+      - traefik.http.routers.traefik.tls=true
+      - traefik.http.routers.traefik.tls.certresolver=myresolver
+      - traefik.http.routers.traefik.service=api@internal
+      - traefik.http.services.traefik.loadbalancer.server.port=8080
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      - ./data/traefik:/letsencrypt
+      - /var/run/docker.sock:/var/run/docker.sock
+
+  mon_grafana:
+    image: grafana/grafana:7.5.4
+    container_name: mon_grafana
+    hostname: mon_grafana
+    depends_on:
+      - db_influxdb
+      - db_loki
+    restart: always
+    user: "1000"
+    environment:
+      - INFLUXDB_READ_PASSWORD
+      - GF_DASHBOARDS_DEFAULT_HOME_DASHBOARD_PATH=/var/lib/grafana/dashboards/monitoring/alerting.json
+      - GF_SERVER_DOMAIN=grafana.${TRAEFIK_DOMAIN}
+      - GF_SERVER_ROOT_URL=%(protocol)s://%(domain)s/
+      - GF_SECURITY_ADMIN_PASSWORD=${GRAFANA_ADMIN_PASSWORD}
+      - GF_SMTP_ENABLED
+      - GF_SMTP_HOST
+      - GF_SMTP_USER
+      - GF_SMTP_PASSWORD
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.grafana.rule=Host(`grafana.${TRAEFIK_DOMAIN}`)
+      - traefik.http.routers.grafana.tls=true
+      - traefik.http.routers.grafana.tls.certresolver=myresolver
+      - traefik.http.services.grafana.loadbalancer.server.port=3000
+    volumes:
+      - ./data/grafana:/var/lib/grafana
+      - ./config/grafana/provisioning:/etc/grafana/provisioning
+      - ./config/grafana/dashboards:/var/lib/grafana/dashboards
+
+  mon_promtail:
+    image: grafana/promtail:1.6.0
+    container_name: mon_promtail
+    hostname: mon_promtail
+    restart: always
+    volumes:
+      - ./config/promtail/promtail.yaml:/etc/promtail/config.yml
+      - ./data/promtail:/data
+      - /var/log:/var/log
+    command: -config.file=/etc/promtail/config.yml
+
+  db_loki:
+    image: grafana/loki:2.2.1
+    container_name: db_loki
+    hostname: db_loki
+    restart: always
+    user: "1000"
+    command: -config.file=/etc/loki/local-config.yaml
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.loki.rule=Host(`loki.${TRAEFIK_DOMAIN}`)
+      - traefik.http.routers.loki.tls=true
+      - traefik.http.routers.loki.tls.certresolver=myresolver
+      - traefik.http.services.loki.loadbalancer.server.port=3100
+    volumes:
+      - ./config/loki/loki-config.yaml:/etc/loki/local-config.yaml
+      - ./data/loki:/loki
+
+  db_influxdb:
+    image: influxdb:1.8.3
+    container_name: db_influxdb
+    hostname: db_influxdb
+    restart: always
+    environment:
+      - INFLUXDB_HTTP_LOG_ENABLED=false
+      - INFLUXDB_REPORTING_DISABLED=true
+      - INFLUXDB_DB=iot
+      - INFLUXDB_READ_USER=reader
+      - INFLUXDB_READ_USER_PASSWORD=${INFLUXDB_READ_PASSWORD}
+      - INFLUXDB_WRITE_USER=writer
+      - INFLUXDB_WRITE_USER_PASSWORD=${INFLUXDB_WRITE_PASSWORD}
+      - INFLUXDB_UDP_ENABLED=true
+      - INFLUXDB_UDP_DATABASE=iot
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.influxdb.rule=Host(`influxdb.${TRAEFIK_DOMAIN}`)
+      - traefik.http.routers.influxdb.tls=true
+      - traefik.http.routers.influxdb.tls.certresolver=myresolver
+      - traefik.http.services.influxdb.loadbalancer.server.port=8086
+    volumes:
+      - ./data/influxdb:/var/lib/influxdb
+
+
+
