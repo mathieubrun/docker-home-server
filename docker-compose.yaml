@@ -160,6 +160,26 @@ services:
       default:
         ipv4_address: 10.0.0.2
 
+  pri_cups:
+    build:
+      context: src/cups
+    container_name: pri_cups
+    hostname: pri_cups
+    restart: always
+    privileged: true
+    device_cgroup_rules:
+      - 'c 180:* rmw'
+    volumes:
+      - /dev:/dev
+      - /run/udev:/run/udev:ro
+      - ./config/cups/printers.conf:/etc/cups/printers.conf
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.cups.rule=Host(`cups.${TRAEFIK_DOMAIN}`)
+      - traefik.http.routers.cups.tls=true
+      - traefik.http.routers.cups.tls.certresolver=myresolver
+      - traefik.http.services.cups.loadbalancer.server.port=631
+
 networks:
   default:
     ipam:
