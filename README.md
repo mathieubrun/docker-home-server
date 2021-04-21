@@ -2,6 +2,11 @@
 
 ## Providing :
 
+- Network
+  - pi-hole
+  - unbound
+  - cups
+
 - Monitoring
   - InfluxDB : metrics persistence
   - Grafana : dashboards
@@ -9,10 +14,14 @@
   - Telegraf : metrics agent
   - Promtail : logs agent
 
-- Network
-  - pi-hole
-  - unbound
-  - cups
+- IOT automation
+  - Mosquitto : MQTT broker
+  - Zigbee2mqtt : communication with devices
+  - Nodered : automation
+  - Telegraf : MQTT to InfluxDB bridge
+
+- Collaboration
+  - Nextcloud
 
 ## Getting started
 
@@ -25,7 +34,7 @@ mkdir -p data/grafana
 sudo chown -R 1000:1000 data/grafana
 ````
 
-For collecting logs of docker containers, the easiest way is to change the default logging driver to `journald`, to aggregate them into systemd journal. From there they will be collected by promtail.
+For collecting logs of docker containers, the easiest way is to change the default loggin driver to `journald`, to aggregate them into systemd journal. From there they will be collected by promtail.
 
 ```` json
 {
