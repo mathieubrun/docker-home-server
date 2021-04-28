@@ -14,7 +14,7 @@
           "datasource": "-- Grafana --",
           "enable": true,
           "hide": true,
-          "iconColor": "rgba(255, 96, 96, 1)",
+          "iconColor": "#1F60C4",
           "limit": 100,
           "matchAny": true,
           "name": "Deployments",
@@ -63,7 +63,7 @@
           "for": "5m",
           "frequency": "1m",
           "handler": 1,
-          "name": "Disk usage alert",
+          "name": "Disk usage alert - data",
           "noDataState": "alerting",
           "notifications": []
         },
@@ -71,7 +71,7 @@
         "bars": false,
         "dashLength": 10,
         "dashes": false,
-        "datasource": "InfluxDB",
+        "datasource": "InfluxDB-monitoring",
         "fieldConfig": {
           "defaults": {},
           "overrides": []
@@ -181,7 +181,7 @@
         "timeFrom": null,
         "timeRegions": [],
         "timeShift": null,
-        "title": "Disk usage",
+        "title": "Disk usage - root",
         "tooltip": {
           "shared": true,
           "sort": 0,
@@ -260,7 +260,7 @@
         "bars": false,
         "dashLength": 10,
         "dashes": false,
-        "datasource": "InfluxDB",
+        "datasource": "InfluxDB-monitoring",
         "fieldConfig": {
           "defaults": {},
           "overrides": []
@@ -324,7 +324,7 @@
             ],
             "measurement": "temp",
             "orderByTime": "ASC",
-            "policy": "autogen",
+            "policy": "default",
             "query": "SELECT mean(temp) as temp  FROM \"temp\" WHERE $timeFilter GROUP BY time($interval), host ORDER BY asc",
             "rawQuery": false,
             "refId": "A",
@@ -431,11 +431,12 @@
         "yaxes": [
           {
             "$$hashKey": "object:234",
-            "format": "short",
+            "decimals": null,
+            "format": "celsius",
             "label": null,
             "logBase": 1,
-            "max": null,
-            "min": null,
+            "max": "65",
+            "min": "20",
             "show": true
           },
           {
@@ -494,7 +495,7 @@
         "bars": true,
         "dashLength": 10,
         "dashes": false,
-        "datasource": "InfluxDB",
+        "datasource": "InfluxDB-monitoring",
         "fieldConfig": {
           "defaults": {},
           "overrides": []
@@ -678,7 +679,7 @@
           "for": "5m",
           "frequency": "1m",
           "handler": 1,
-          "name": "Disk usage alert",
+          "name": "Disk usage alert - data",
           "noDataState": "no_data",
           "notifications": []
         },
@@ -686,7 +687,7 @@
         "bars": false,
         "dashLength": 10,
         "dashes": false,
-        "datasource": "InfluxDB",
+        "datasource": "InfluxDB-monitoring",
         "fieldConfig": {
           "defaults": {},
           "overrides": []
@@ -796,7 +797,7 @@
         "timeFrom": null,
         "timeRegions": [],
         "timeShift": null,
-        "title": "Disk usage",
+        "title": "Disk usage - data",
         "tooltip": {
           "shared": true,
           "sort": 0,
@@ -875,7 +876,7 @@
         "bars": false,
         "dashLength": 10,
         "dashes": false,
-        "datasource": "InfluxDB",
+        "datasource": "InfluxDB-monitoring",
         "fieldConfig": {
           "defaults": {},
           "overrides": []
@@ -1044,7 +1045,7 @@
         "bars": false,
         "dashLength": 10,
         "dashes": false,
-        "datasource": "InfluxDB",
+        "datasource": "InfluxDB-monitoring",
         "fieldConfig": {
           "defaults": {},
           "overrides": []
@@ -1221,7 +1222,7 @@
         "bars": false,
         "dashLength": 10,
         "dashes": false,
-        "datasource": "InfluxDB",
+        "datasource": "InfluxDB-monitoring",
         "fieldConfig": {
           "defaults": {},
           "overrides": []
@@ -1398,7 +1399,7 @@
         "bars": false,
         "dashLength": 10,
         "dashes": false,
-        "datasource": "InfluxDB",
+        "datasource": "InfluxDB-monitoring",
         "fieldConfig": {
           "defaults": {},
           "overrides": []
@@ -1544,14 +1545,14 @@
     },
     "time": {
       "from": "now-7d",
-      "to": "now-2m"
+      "to": "now"
     },
     "timepicker": {
       "hidden": false,
-      "nowDelay": "2m"
+      "nowDelay": ""
     },
     "timezone": "",
     "title": "Alerting",
     "uid": "0pHXqdXMk",
-    "version": 20
+    "version": 28
   }

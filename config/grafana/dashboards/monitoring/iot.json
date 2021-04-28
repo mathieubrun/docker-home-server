@@ -18,11 +18,10 @@
     "links": [],
     "panels": [
       {
-        "datasource": "InfluxDB",
+        "datasource": "InfluxDB-iot",
         "description": "",
         "fieldConfig": {
           "defaults": {
-            "custom": {},
             "mappings": [],
             "thresholds": {
               "mode": "absolute",
@@ -61,9 +60,10 @@
             "values": false
           },
           "showThresholdLabels": false,
-          "showThresholdMarkers": true
+          "showThresholdMarkers": true,
+          "text": {}
         },
-        "pluginVersion": "7.1.5",
+        "pluginVersion": "7.5.4",
         "targets": [
           {
             "alias": "$tag_device_friendlyName",
@@ -77,7 +77,7 @@
             ],
             "measurement": "mqtt_consumer",
             "orderByTime": "ASC",
-            "policy": "autogen",
+            "policy": "iot-rp",
             "refId": "A",
             "resultFormat": "time_series",
             "select": [
@@ -103,11 +103,10 @@
         "type": "gauge"
       },
       {
-        "datasource": "InfluxDB",
+        "datasource": "InfluxDB-iot",
         "description": "",
         "fieldConfig": {
           "defaults": {
-            "custom": {},
             "decimals": 0,
             "mappings": [],
             "max": 255,
@@ -149,9 +148,10 @@
             "values": false
           },
           "showThresholdLabels": false,
-          "showThresholdMarkers": true
+          "showThresholdMarkers": true,
+          "text": {}
         },
-        "pluginVersion": "7.1.5",
+        "pluginVersion": "7.5.4",
         "targets": [
           {
             "alias": "$tag_device_friendlyName",
@@ -165,7 +165,7 @@
             ],
             "measurement": "mqtt_consumer",
             "orderByTime": "ASC",
-            "policy": "autogen",
+            "policy": "iot-rp",
             "refId": "A",
             "resultFormat": "time_series",
             "select": [
@@ -191,7 +191,7 @@
         "type": "gauge"
       }
     ],
-    "schemaVersion": 26,
+    "schemaVersion": 27,
     "style": "dark",
     "tags": [],
     "templating": {
@@ -218,5 +218,5 @@
     "timezone": "",
     "title": "Sensors",
     "uid": "dZhOLLggk",
-    "version": 2
+    "version": 3
   }

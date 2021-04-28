@@ -15,11 +15,11 @@
     "editable": true,
     "gnetId": null,
     "graphTooltip": 0,
-    "iteration": 1618427025176,
+    "iteration": 1619625235138,
     "links": [],
     "panels": [
       {
-        "datasource": "InfluxDB",
+        "datasource": "InfluxDB-iot",
         "fieldConfig": {
           "defaults": {
             "mappings": [],
@@ -78,7 +78,7 @@
             ],
             "measurement": "mqtt_consumer",
             "orderByTime": "ASC",
-            "policy": "autogen",
+            "policy": "iot-rp",
             "refId": "A",
             "resultFormat": "time_series",
             "select": [
@@ -133,7 +133,7 @@
         "bars": false,
         "dashLength": 10,
         "dashes": false,
-        "datasource": "InfluxDB",
+        "datasource": "InfluxDB-iot",
         "description": "",
         "fieldConfig": {
           "defaults": {
@@ -213,8 +213,8 @@
             "groupBy": [],
             "measurement": "mqtt_consumer",
             "orderByTime": "ASC",
-            "policy": "autogen",
-            "query": "SELECT \"temperature\" AS \"temperature\", \"humidity\" AS \"humidity\" FROM \"autogen\".\"mqtt_consumer\" WHERE (\"device_friendlyName\" = 'bathroom.temp') AND $timeFilter GROUP BY \"device_friendlyName\"",
+            "policy": "iot-rp",
+            "query": "SELECT \"temperature\" AS \"temperature\", \"humidity\" AS \"humidity\" FROM \"iot-rp\".\"mqtt_consumer\" WHERE (\"device_friendlyName\" = 'bathroom.temp') AND $timeFilter GROUP BY \"device_friendlyName\"",
             "rawQuery": false,
             "refId": "A",
             "resultFormat": "time_series",
@@ -312,7 +312,7 @@
         "bars": false,
         "dashLength": 10,
         "dashes": false,
-        "datasource": "InfluxDB",
+        "datasource": "InfluxDB-iot",
         "description": "",
         "fieldConfig": {
           "defaults": {
@@ -353,7 +353,7 @@
         "points": true,
         "renderer": "flot",
         "repeatDirection": "h",
-        "repeatIteration": 1618427025176,
+        "repeatIteration": 1619625235138,
         "repeatPanelId": 6,
         "scopedVars": {
           "TempSensors": {
@@ -393,8 +393,8 @@
             "groupBy": [],
             "measurement": "mqtt_consumer",
             "orderByTime": "ASC",
-            "policy": "autogen",
-            "query": "SELECT \"temperature\" AS \"temperature\", \"humidity\" AS \"humidity\" FROM \"autogen\".\"mqtt_consumer\" WHERE (\"device_friendlyName\" = 'bathroom.temp') AND $timeFilter GROUP BY \"device_friendlyName\"",
+            "policy": "iot-rp",
+            "query": "SELECT \"temperature\" AS \"temperature\", \"humidity\" AS \"humidity\" FROM \"iot-rp\".\"mqtt_consumer\" WHERE (\"device_friendlyName\" = 'bathroom.temp') AND $timeFilter GROUP BY \"device_friendlyName\"",
             "rawQuery": false,
             "refId": "A",
             "resultFormat": "time_series",
@@ -492,7 +492,7 @@
         "bars": false,
         "dashLength": 10,
         "dashes": false,
-        "datasource": "InfluxDB",
+        "datasource": "InfluxDB-iot",
         "description": "",
         "fieldConfig": {
           "defaults": {
@@ -533,7 +533,7 @@
         "points": true,
         "renderer": "flot",
         "repeatDirection": "h",
-        "repeatIteration": 1618427025176,
+        "repeatIteration": 1619625235138,
         "repeatPanelId": 6,
         "scopedVars": {
           "TempSensors": {
@@ -573,8 +573,8 @@
             "groupBy": [],
             "measurement": "mqtt_consumer",
             "orderByTime": "ASC",
-            "policy": "autogen",
-            "query": "SELECT \"temperature\" AS \"temperature\", \"humidity\" AS \"humidity\" FROM \"autogen\".\"mqtt_consumer\" WHERE (\"device_friendlyName\" = 'bathroom.temp') AND $timeFilter GROUP BY \"device_friendlyName\"",
+            "policy": "iot-rp",
+            "query": "SELECT \"temperature\" AS \"temperature\", \"humidity\" AS \"humidity\" FROM \"iot-rp\".\"mqtt_consumer\" WHERE (\"device_friendlyName\" = 'bathroom.temp') AND $timeFilter GROUP BY \"device_friendlyName\"",
             "rawQuery": false,
             "refId": "A",
             "resultFormat": "time_series",
@@ -672,7 +672,7 @@
         "bars": false,
         "dashLength": 10,
         "dashes": false,
-        "datasource": "InfluxDB",
+        "datasource": "InfluxDB-iot",
         "description": "",
         "fieldConfig": {
           "defaults": {
@@ -713,7 +713,7 @@
         "points": true,
         "renderer": "flot",
         "repeatDirection": "h",
-        "repeatIteration": 1618427025176,
+        "repeatIteration": 1619625235138,
         "repeatPanelId": 6,
         "scopedVars": {
           "TempSensors": {
@@ -753,8 +753,8 @@
             "groupBy": [],
             "measurement": "mqtt_consumer",
             "orderByTime": "ASC",
-            "policy": "autogen",
-            "query": "SELECT \"temperature\" AS \"temperature\", \"humidity\" AS \"humidity\" FROM \"autogen\".\"mqtt_consumer\" WHERE (\"device_friendlyName\" = 'bathroom.temp') AND $timeFilter GROUP BY \"device_friendlyName\"",
+            "policy": "iot-rp",
+            "query": "SELECT \"temperature\" AS \"temperature\", \"humidity\" AS \"humidity\" FROM \"iot-rp\".\"mqtt_consumer\" WHERE (\"device_friendlyName\" = 'bathroom.temp') AND $timeFilter GROUP BY \"device_friendlyName\"",
             "rawQuery": false,
             "refId": "A",
             "resultFormat": "time_series",
@@ -852,7 +852,7 @@
         "bars": false,
         "dashLength": 10,
         "dashes": false,
-        "datasource": "InfluxDB",
+        "datasource": "InfluxDB-iot",
         "description": "",
         "fieldConfig": {
           "defaults": {
@@ -893,7 +893,7 @@
         "points": true,
         "renderer": "flot",
         "repeatDirection": "h",
-        "repeatIteration": 1618427025176,
+        "repeatIteration": 1619625235138,
         "repeatPanelId": 6,
         "scopedVars": {
           "TempSensors": {
@@ -933,8 +933,8 @@
             "groupBy": [],
             "measurement": "mqtt_consumer",
             "orderByTime": "ASC",
-            "policy": "autogen",
-            "query": "SELECT \"temperature\" AS \"temperature\", \"humidity\" AS \"humidity\" FROM \"autogen\".\"mqtt_consumer\" WHERE (\"device_friendlyName\" = 'bathroom.temp') AND $timeFilter GROUP BY \"device_friendlyName\"",
+            "policy": "iot-rp",
+            "query": "SELECT \"temperature\" AS \"temperature\", \"humidity\" AS \"humidity\" FROM \"iot-rp\".\"mqtt_consumer\" WHERE (\"device_friendlyName\" = 'bathroom.temp') AND $timeFilter GROUP BY \"device_friendlyName\"",
             "rawQuery": false,
             "refId": "A",
             "resultFormat": "time_series",
@@ -1032,7 +1032,7 @@
         "bars": false,
         "dashLength": 10,
         "dashes": false,
-        "datasource": "InfluxDB",
+        "datasource": "InfluxDB-iot",
         "description": "",
         "fieldConfig": {
           "defaults": {
@@ -1073,7 +1073,7 @@
         "points": true,
         "renderer": "flot",
         "repeatDirection": "h",
-        "repeatIteration": 1618427025176,
+        "repeatIteration": 1619625235138,
         "repeatPanelId": 6,
         "scopedVars": {
           "TempSensors": {
@@ -1113,8 +1113,8 @@
             "groupBy": [],
             "measurement": "mqtt_consumer",
             "orderByTime": "ASC",
-            "policy": "autogen",
-            "query": "SELECT \"temperature\" AS \"temperature\", \"humidity\" AS \"humidity\" FROM \"autogen\".\"mqtt_consumer\" WHERE (\"device_friendlyName\" = 'bathroom.temp') AND $timeFilter GROUP BY \"device_friendlyName\"",
+            "policy": "iot-rp",
+            "query": "SELECT \"temperature\" AS \"temperature\", \"humidity\" AS \"humidity\" FROM \"iot-rp\".\"mqtt_consumer\" WHERE (\"device_friendlyName\" = 'bathroom.temp') AND $timeFilter GROUP BY \"device_friendlyName\"",
             "rawQuery": false,
             "refId": "A",
             "resultFormat": "time_series",
@@ -1212,7 +1212,7 @@
         "bars": false,
         "dashLength": 10,
         "dashes": false,
-        "datasource": "InfluxDB",
+        "datasource": "InfluxDB-iot",
         "description": "",
         "fieldConfig": {
           "defaults": {
@@ -1253,7 +1253,7 @@
         "points": true,
         "renderer": "flot",
         "repeatDirection": "h",
-        "repeatIteration": 1618427025176,
+        "repeatIteration": 1619625235138,
         "repeatPanelId": 6,
         "scopedVars": {
           "TempSensors": {
@@ -1293,8 +1293,8 @@
             "groupBy": [],
             "measurement": "mqtt_consumer",
             "orderByTime": "ASC",
-            "policy": "autogen",
-            "query": "SELECT \"temperature\" AS \"temperature\", \"humidity\" AS \"humidity\" FROM \"autogen\".\"mqtt_consumer\" WHERE (\"device_friendlyName\" = 'bathroom.temp') AND $timeFilter GROUP BY \"device_friendlyName\"",
+            "policy": "iot-rp",
+            "query": "SELECT \"temperature\" AS \"temperature\", \"humidity\" AS \"humidity\" FROM \"iot-rp\".\"mqtt_consumer\" WHERE (\"device_friendlyName\" = 'bathroom.temp') AND $timeFilter GROUP BY \"device_friendlyName\"",
             "rawQuery": false,
             "refId": "A",
             "resultFormat": "time_series",
@@ -1392,7 +1392,7 @@
         "bars": false,
         "dashLength": 10,
         "dashes": false,
-        "datasource": "InfluxDB",
+        "datasource": "InfluxDB-iot",
         "description": "",
         "fieldConfig": {
           "defaults": {
@@ -1433,7 +1433,7 @@
         "points": true,
         "renderer": "flot",
         "repeatDirection": "h",
-        "repeatIteration": 1618427025176,
+        "repeatIteration": 1619625235138,
         "repeatPanelId": 6,
         "scopedVars": {
           "TempSensors": {
@@ -1473,8 +1473,8 @@
             "groupBy": [],
             "measurement": "mqtt_consumer",
             "orderByTime": "ASC",
-            "policy": "autogen",
-            "query": "SELECT \"temperature\" AS \"temperature\", \"humidity\" AS \"humidity\" FROM \"autogen\".\"mqtt_consumer\" WHERE (\"device_friendlyName\" = 'bathroom.temp') AND $timeFilter GROUP BY \"device_friendlyName\"",
+            "policy": "iot-rp",
+            "query": "SELECT \"temperature\" AS \"temperature\", \"humidity\" AS \"humidity\" FROM \"iot-rp\".\"mqtt_consumer\" WHERE (\"device_friendlyName\" = 'bathroom.temp') AND $timeFilter GROUP BY \"device_friendlyName\"",
             "rawQuery": false,
             "refId": "A",
             "resultFormat": "time_series",
@@ -1586,7 +1586,7 @@
         "bars": false,
         "dashLength": 10,
         "dashes": false,
-        "datasource": "InfluxDB",
+        "datasource": "InfluxDB-iot",
         "description": "",
         "fieldConfig": {
           "defaults": {
@@ -1666,8 +1666,8 @@
             "groupBy": [],
             "measurement": "mqtt_consumer",
             "orderByTime": "ASC",
-            "policy": "autogen",
-            "query": "SELECT \"temperature\" AS \"temperature\", \"humidity\" AS \"humidity\" FROM \"autogen\".\"mqtt_consumer\" WHERE (\"device_friendlyName\" = 'bathroom.temp') AND $timeFilter GROUP BY \"device_friendlyName\"",
+            "policy": "iot-rp",
+            "query": "SELECT \"temperature\" AS \"temperature\", \"humidity\" AS \"humidity\" FROM \"iot-rp\".\"mqtt_consumer\" WHERE (\"device_friendlyName\" = 'bathroom.temp') AND $timeFilter GROUP BY \"device_friendlyName\"",
             "rawQuery": false,
             "refId": "A",
             "resultFormat": "time_series",
@@ -1751,7 +1751,7 @@
         "bars": false,
         "dashLength": 10,
         "dashes": false,
-        "datasource": "InfluxDB",
+        "datasource": "InfluxDB-iot",
         "description": "",
         "fieldConfig": {
           "defaults": {
@@ -1792,7 +1792,7 @@
         "points": true,
         "renderer": "flot",
         "repeatDirection": "h",
-        "repeatIteration": 1618427025176,
+        "repeatIteration": 1619625235138,
         "repeatPanelId": 27,
         "scopedVars": {
           "LumiSensors": {
@@ -1832,8 +1832,8 @@
             "groupBy": [],
             "measurement": "mqtt_consumer",
             "orderByTime": "ASC",
-            "policy": "autogen",
-            "query": "SELECT \"temperature\" AS \"temperature\", \"humidity\" AS \"humidity\" FROM \"autogen\".\"mqtt_consumer\" WHERE (\"device_friendlyName\" = 'bathroom.temp') AND $timeFilter GROUP BY \"device_friendlyName\"",
+            "policy": "iot-rp",
+            "query": "SELECT \"temperature\" AS \"temperature\", \"humidity\" AS \"humidity\" FROM \"iot-rp\".\"mqtt_consumer\" WHERE (\"device_friendlyName\" = 'bathroom.temp') AND $timeFilter GROUP BY \"device_friendlyName\"",
             "rawQuery": false,
             "refId": "A",
             "resultFormat": "time_series",
@@ -1917,7 +1917,7 @@
         "bars": false,
         "dashLength": 10,
         "dashes": false,
-        "datasource": "InfluxDB",
+        "datasource": "InfluxDB-iot",
         "description": "",
         "fieldConfig": {
           "defaults": {
@@ -1958,7 +1958,7 @@
         "points": true,
         "renderer": "flot",
         "repeatDirection": "h",
-        "repeatIteration": 1618427025176,
+        "repeatIteration": 1619625235138,
         "repeatPanelId": 27,
         "scopedVars": {
           "LumiSensors": {
@@ -1998,8 +1998,8 @@
             "groupBy": [],
             "measurement": "mqtt_consumer",
             "orderByTime": "ASC",
-            "policy": "autogen",
-            "query": "SELECT \"temperature\" AS \"temperature\", \"humidity\" AS \"humidity\" FROM \"autogen\".\"mqtt_consumer\" WHERE (\"device_friendlyName\" = 'bathroom.temp') AND $timeFilter GROUP BY \"device_friendlyName\"",
+            "policy": "iot-rp",
+            "query": "SELECT \"temperature\" AS \"temperature\", \"humidity\" AS \"humidity\" FROM \"iot-rp\".\"mqtt_consumer\" WHERE (\"device_friendlyName\" = 'bathroom.temp') AND $timeFilter GROUP BY \"device_friendlyName\"",
             "rawQuery": false,
             "refId": "A",
             "resultFormat": "time_series",
@@ -2083,7 +2083,7 @@
         "bars": false,
         "dashLength": 10,
         "dashes": false,
-        "datasource": "InfluxDB",
+        "datasource": "InfluxDB-iot",
         "description": "",
         "fieldConfig": {
           "defaults": {
@@ -2124,7 +2124,7 @@
         "points": true,
         "renderer": "flot",
         "repeatDirection": "h",
-        "repeatIteration": 1618427025176,
+        "repeatIteration": 1619625235138,
         "repeatPanelId": 27,
         "scopedVars": {
           "LumiSensors": {
@@ -2164,8 +2164,8 @@
             "groupBy": [],
             "measurement": "mqtt_consumer",
             "orderByTime": "ASC",
-            "policy": "autogen",
-            "query": "SELECT \"temperature\" AS \"temperature\", \"humidity\" AS \"humidity\" FROM \"autogen\".\"mqtt_consumer\" WHERE (\"device_friendlyName\" = 'bathroom.temp') AND $timeFilter GROUP BY \"device_friendlyName\"",
+            "policy": "iot-rp",
+            "query": "SELECT \"temperature\" AS \"temperature\", \"humidity\" AS \"humidity\" FROM \"iot-rp\".\"mqtt_consumer\" WHERE (\"device_friendlyName\" = 'bathroom.temp') AND $timeFilter GROUP BY \"device_friendlyName\"",
             "rawQuery": false,
             "refId": "A",
             "resultFormat": "time_series",
@@ -2249,7 +2249,7 @@
         "bars": false,
         "dashLength": 10,
         "dashes": false,
-        "datasource": "InfluxDB",
+        "datasource": "InfluxDB-iot",
         "description": "",
         "fieldConfig": {
           "defaults": {
@@ -2290,7 +2290,7 @@
         "points": true,
         "renderer": "flot",
         "repeatDirection": "h",
-        "repeatIteration": 1618427025176,
+        "repeatIteration": 1619625235138,
         "repeatPanelId": 27,
         "scopedVars": {
           "LumiSensors": {
@@ -2330,8 +2330,8 @@
             "groupBy": [],
             "measurement": "mqtt_consumer",
             "orderByTime": "ASC",
-            "policy": "autogen",
-            "query": "SELECT \"temperature\" AS \"temperature\", \"humidity\" AS \"humidity\" FROM \"autogen\".\"mqtt_consumer\" WHERE (\"device_friendlyName\" = 'bathroom.temp') AND $timeFilter GROUP BY \"device_friendlyName\"",
+            "policy": "iot-rp",
+            "query": "SELECT \"temperature\" AS \"temperature\", \"humidity\" AS \"humidity\" FROM \"iot-rp\".\"mqtt_consumer\" WHERE (\"device_friendlyName\" = 'bathroom.temp') AND $timeFilter GROUP BY \"device_friendlyName\"",
             "rawQuery": false,
             "refId": "A",
             "resultFormat": "time_series",
@@ -2419,7 +2419,7 @@
             "text": "All",
             "value": "$__all"
           },
-          "datasource": "InfluxDB",
+          "datasource": "InfluxDB-iot",
           "definition": "",
           "description": null,
           "error": null,
@@ -2447,7 +2447,7 @@
             "text": "All",
             "value": "$__all"
           },
-          "datasource": "InfluxDB",
+          "datasource": "InfluxDB-iot",
           "definition": "",
           "description": null,
           "error": null,
@@ -2491,5 +2491,5 @@
     "timezone": "browser",
     "title": "Sensors metrics",
     "uid": "z6wPuLRRs",
-    "version": 18
+    "version": 3
   }

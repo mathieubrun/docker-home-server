@@ -38,7 +38,7 @@
         "bars": false,
         "dashLength": 10,
         "dashes": false,
-        "datasource": "InfluxDB",
+        "datasource": "InfluxDB-monitoring",
         "fieldConfig": {
           "defaults": {},
           "overrides": []
@@ -171,7 +171,7 @@
         "bars": false,
         "dashLength": 10,
         "dashes": false,
-        "datasource": "InfluxDB",
+        "datasource": "InfluxDB-monitoring",
         "fieldConfig": {
           "defaults": {},
           "overrides": []
@@ -235,7 +235,7 @@
             ],
             "measurement": "temp",
             "orderByTime": "ASC",
-            "policy": "autogen",
+            "policy": "monitoring-rp",
             "query": "SELECT mean(temp) as temp  FROM \"temp\" WHERE $timeFilter GROUP BY time($interval), host ORDER BY asc",
             "rawQuery": false,
             "refId": "A",
@@ -292,7 +292,7 @@
             ],
             "measurement": "smart_device",
             "orderByTime": "ASC",
-            "policy": "default",
+            "policy": "monitoring-rp",
             "refId": "B",
             "resultFormat": "time_series",
             "select": [
@@ -358,7 +358,7 @@
         "bars": false,
         "dashLength": 10,
         "dashes": false,
-        "datasource": "InfluxDB",
+        "datasource": "InfluxDB-monitoring",
         "fieldConfig": {
           "defaults": {},
           "overrides": []
@@ -491,7 +491,7 @@
         "bars": false,
         "dashLength": 10,
         "dashes": false,
-        "datasource": "InfluxDB",
+        "datasource": "InfluxDB-monitoring",
         "description": "",
         "fieldConfig": {
           "defaults": {},
@@ -625,7 +625,7 @@
         "bars": false,
         "dashLength": 10,
         "dashes": false,
-        "datasource": "InfluxDB",
+        "datasource": "InfluxDB-monitoring",
         "fieldConfig": {
           "defaults": {},
           "overrides": []
@@ -787,7 +787,7 @@
         "bars": false,
         "dashLength": 10,
         "dashes": false,
-        "datasource": "InfluxDB",
+        "datasource": "InfluxDB-monitoring",
         "editable": true,
         "error": false,
         "fieldConfig": {
@@ -1238,5 +1238,5 @@
     "timezone": "",
     "title": "Performance",
     "uid": "DCiEvLkRL",
-    "version": 1
+    "version": 3
   }

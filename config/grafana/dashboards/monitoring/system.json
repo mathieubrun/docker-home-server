@@ -16,7 +16,7 @@
     "editable": true,
     "gnetId": 5955,
     "graphTooltip": 1,
-    "iteration": 1599383623046,
+    "iteration": 1619635882792,
     "links": [],
     "panels": [
       {
@@ -42,11 +42,9 @@
           "rgba(237, 129, 40, 0.89)",
           "#d44a3a"
         ],
-        "datasource": "InfluxDB",
+        "datasource": "InfluxDB-monitoring",
         "fieldConfig": {
-          "defaults": {
-            "custom": {}
-          },
+          "defaults": {},
           "overrides": []
         },
         "format": "s",
@@ -159,11 +157,9 @@
           "rgba(237, 129, 40, 0.89)",
           "#d44a3a"
         ],
-        "datasource": "InfluxDB",
+        "datasource": "InfluxDB-monitoring",
         "fieldConfig": {
-          "defaults": {
-            "custom": {}
-          },
+          "defaults": {},
           "overrides": []
         },
         "format": "percent",
@@ -276,11 +272,9 @@
           "rgba(237, 129, 40, 0.89)",
           "#d44a3a"
         ],
-        "datasource": "InfluxDB",
+        "datasource": "InfluxDB-monitoring",
         "fieldConfig": {
-          "defaults": {
-            "custom": {}
-          },
+          "defaults": {},
           "overrides": []
         },
         "format": "none",
@@ -393,12 +387,10 @@
           "rgba(237, 129, 40, 0.89)",
           "#d44a3a"
         ],
-        "datasource": "InfluxDB",
+        "datasource": "InfluxDB-monitoring",
         "decimals": null,
         "fieldConfig": {
-          "defaults": {
-            "custom": {}
-          },
+          "defaults": {},
           "overrides": []
         },
         "format": "none",
@@ -511,12 +503,10 @@
           "rgba(237, 129, 40, 0.89)",
           "#d44a3a"
         ],
-        "datasource": "InfluxDB",
+        "datasource": "InfluxDB-monitoring",
         "decimals": null,
         "fieldConfig": {
-          "defaults": {
-            "custom": {}
-          },
+          "defaults": {},
           "overrides": []
         },
         "format": "percent",
@@ -629,12 +619,10 @@
           "rgba(237, 129, 40, 0.89)",
           "#d44a3a"
         ],
-        "datasource": "InfluxDB",
+        "datasource": "InfluxDB-monitoring",
         "decimals": null,
         "fieldConfig": {
-          "defaults": {
-            "custom": {}
-          },
+          "defaults": {},
           "overrides": []
         },
         "format": "percent",
@@ -747,12 +735,10 @@
           "rgba(237, 129, 40, 0.89)",
           "#d44a3a"
         ],
-        "datasource": "InfluxDB",
+        "datasource": "InfluxDB-monitoring",
         "decimals": 2,
         "fieldConfig": {
-          "defaults": {
-            "custom": {}
-          },
+          "defaults": {},
           "overrides": []
         },
         "format": "percent",
@@ -865,12 +851,10 @@
           "rgba(237, 129, 40, 0.89)",
           "#d44a3a"
         ],
-        "datasource": "InfluxDB",
+        "datasource": "InfluxDB-monitoring",
         "decimals": 0,
         "fieldConfig": {
-          "defaults": {
-            "custom": {}
-          },
+          "defaults": {},
           "overrides": []
         },
         "format": "none",
@@ -983,12 +967,10 @@
           "rgba(237, 129, 40, 0.89)",
           "#d44a3a"
         ],
-        "datasource": "InfluxDB",
+        "datasource": "InfluxDB-monitoring",
         "decimals": 0,
         "fieldConfig": {
-          "defaults": {
-            "custom": {}
-          },
+          "defaults": {},
           "overrides": []
         },
         "format": "none",
@@ -1101,12 +1083,10 @@
           "rgba(237, 129, 40, 0.89)",
           "#d44a3a"
         ],
-        "datasource": "InfluxDB",
+        "datasource": "InfluxDB-monitoring",
         "decimals": null,
         "fieldConfig": {
-          "defaults": {
-            "custom": {}
-          },
+          "defaults": {},
           "overrides": []
         },
         "format": "percent",
@@ -1219,12 +1199,10 @@
           "rgba(237, 129, 40, 0.89)",
           "#d44a3a"
         ],
-        "datasource": "InfluxDB",
+        "datasource": "InfluxDB-monitoring",
         "decimals": null,
         "fieldConfig": {
-          "defaults": {
-            "custom": {}
-          },
+          "defaults": {},
           "overrides": []
         },
         "format": "none",
@@ -1333,13 +1311,11 @@
         "bars": false,
         "dashLength": 10,
         "dashes": false,
-        "datasource": "InfluxDB",
+        "datasource": "InfluxDB-monitoring",
         "editable": true,
         "error": false,
         "fieldConfig": {
-          "defaults": {
-            "custom": {}
-          },
+          "defaults": {},
           "overrides": []
         },
         "fill": 1,
@@ -1370,8 +1346,11 @@
         "linewidth": 1,
         "links": [],
         "nullPointMode": "connected",
+        "options": {
+          "alertThreshold": true
+        },
         "percentage": false,
-        "pluginVersion": "7.1.5",
+        "pluginVersion": "7.5.4",
         "pointradius": 5,
         "points": false,
         "renderer": "flot",
@@ -1391,7 +1370,7 @@
         "targets": [
           {
             "alias": "$tag_path ($tag_fstype on $tag_device)",
-            "dsType": "influxdb",
+            "dsType": "InfluxDB-monitoring",
             "function": "mean",
             "groupBy": [
               {
@@ -1500,11 +1479,9 @@
         "bars": false,
         "dashLength": 10,
         "dashes": false,
-        "datasource": "InfluxDB",
+        "datasource": "InfluxDB-monitoring",
         "fieldConfig": {
-          "defaults": {
-            "custom": {}
-          },
+          "defaults": {},
           "overrides": []
         },
         "fill": 1,
@@ -1529,8 +1506,11 @@
         "lines": true,
         "linewidth": 1,
         "nullPointMode": "connected",
+        "options": {
+          "alertThreshold": true
+        },
         "percentage": false,
-        "pluginVersion": "7.1.5",
+        "pluginVersion": "7.5.4",
         "pointradius": 2,
         "points": false,
         "renderer": "flot",
@@ -1625,13 +1605,11 @@
         "bars": false,
         "dashLength": 10,
         "dashes": false,
-        "datasource": "InfluxDB",
+        "datasource": "InfluxDB-monitoring",
         "editable": true,
         "error": false,
         "fieldConfig": {
-          "defaults": {
-            "custom": {}
-          },
+          "defaults": {},
           "overrides": []
         },
         "fill": 1,
@@ -1663,8 +1641,11 @@
         "linewidth": 1,
         "links": [],
         "nullPointMode": "connected",
+        "options": {
+          "alertThreshold": true
+        },
         "percentage": false,
-        "pluginVersion": "7.1.5",
+        "pluginVersion": "7.5.4",
         "pointradius": 5,
         "points": false,
         "renderer": "flot",
@@ -1683,7 +1664,7 @@
         "targets": [
           {
             "alias": "$tag_host: $col",
-            "dsType": "influxdb",
+            "dsType": "InfluxDB-monitoring",
             "function": "mean",
             "groupBy": [
               {
@@ -1771,13 +1752,11 @@
         "bars": false,
         "dashLength": 10,
         "dashes": false,
-        "datasource": "InfluxDB",
+        "datasource": "InfluxDB-monitoring",
         "editable": true,
         "error": false,
         "fieldConfig": {
-          "defaults": {
-            "custom": {}
-          },
+          "defaults": {},
           "overrides": []
         },
         "fill": 1,
@@ -1811,8 +1790,11 @@
         "linewidth": 1,
         "links": [],
         "nullPointMode": "connected",
+        "options": {
+          "alertThreshold": true
+        },
         "percentage": false,
-        "pluginVersion": "7.1.5",
+        "pluginVersion": "7.5.4",
         "pointradius": 5,
         "points": false,
         "renderer": "flot",
@@ -1823,7 +1805,7 @@
         "targets": [
           {
             "alias": "$tag_host: $col",
-            "dsType": "influxdb",
+            "dsType": "InfluxDB-monitoring",
             "function": "mean",
             "groupBy": [
               {
@@ -1910,13 +1892,11 @@
         "bars": false,
         "dashLength": 10,
         "dashes": false,
-        "datasource": "InfluxDB",
+        "datasource": "InfluxDB-monitoring",
         "editable": true,
         "error": false,
         "fieldConfig": {
-          "defaults": {
-            "custom": {}
-          },
+          "defaults": {},
           "overrides": []
         },
         "fill": 0,
@@ -1947,8 +1927,11 @@
         "linewidth": 1,
         "links": [],
         "nullPointMode": "connected",
+        "options": {
+          "alertThreshold": true
+        },
         "percentage": false,
-        "pluginVersion": "7.1.5",
+        "pluginVersion": "7.5.4",
         "pointradius": 5,
         "points": false,
         "renderer": "flot",
@@ -1959,7 +1942,7 @@
         "targets": [
           {
             "alias": "$tag_host: $col",
-            "dsType": "influxdb",
+            "dsType": "InfluxDB-monitoring",
             "function": "mean",
             "groupBy": [
               {
@@ -2044,13 +2027,11 @@
         "bars": false,
         "dashLength": 10,
         "dashes": false,
-        "datasource": "InfluxDB",
+        "datasource": "InfluxDB-monitoring",
         "editable": true,
         "error": false,
         "fieldConfig": {
-          "defaults": {
-            "custom": {}
-          },
+          "defaults": {},
           "overrides": []
         },
         "fill": 1,
@@ -2084,8 +2065,11 @@
         "linewidth": 1,
         "links": [],
         "nullPointMode": "connected",
+        "options": {
+          "alertThreshold": true
+        },
         "percentage": false,
-        "pluginVersion": "7.1.5",
+        "pluginVersion": "7.5.4",
         "pointradius": 5,
         "points": false,
         "renderer": "flot",
@@ -2103,7 +2087,7 @@
         "targets": [
           {
             "alias": "$tag_cpu",
-            "dsType": "influxdb",
+            "dsType": "InfluxDB-monitoring",
             "function": "mean",
             "groupBy": [
               {
@@ -2190,13 +2174,11 @@
         "bars": false,
         "dashLength": 10,
         "dashes": false,
-        "datasource": "InfluxDB",
+        "datasource": "InfluxDB-monitoring",
         "editable": true,
         "error": false,
         "fieldConfig": {
-          "defaults": {
-            "custom": {}
-          },
+          "defaults": {},
           "overrides": []
         },
         "fill": 1,
@@ -2230,8 +2212,11 @@
         "linewidth": 1,
         "links": [],
         "nullPointMode": "connected",
+        "options": {
+          "alertThreshold": true
+        },
         "percentage": false,
-        "pluginVersion": "7.1.5",
+        "pluginVersion": "7.5.4",
         "pointradius": 5,
         "points": false,
         "renderer": "flot",
@@ -2242,7 +2227,7 @@
         "targets": [
           {
             "alias": "$tag_host: $col",
-            "dsType": "influxdb",
+            "dsType": "InfluxDB-monitoring",
             "function": "mean",
             "groupBy": [
               {
@@ -2329,13 +2314,11 @@
         "bars": false,
         "dashLength": 10,
         "dashes": false,
-        "datasource": "InfluxDB",
+        "datasource": "InfluxDB-monitoring",
         "editable": true,
         "error": false,
         "fieldConfig": {
-          "defaults": {
-            "custom": {}
-          },
+          "defaults": {},
           "overrides": []
         },
         "fill": 1,
@@ -2369,8 +2352,11 @@
         "linewidth": 1,
         "links": [],
         "nullPointMode": "connected",
+        "options": {
+          "alertThreshold": true
+        },
         "percentage": false,
-        "pluginVersion": "7.1.5",
+        "pluginVersion": "7.5.4",
         "pointradius": 5,
         "points": false,
         "renderer": "flot",
@@ -2381,7 +2367,7 @@
         "targets": [
           {
             "alias": "$tag_host: $col",
-            "dsType": "influxdb",
+            "dsType": "InfluxDB-monitoring",
             "function": "mean",
             "groupBy": [
               {
@@ -2482,13 +2468,11 @@
         "bars": false,
         "dashLength": 10,
         "dashes": false,
-        "datasource": "InfluxDB",
+        "datasource": "InfluxDB-monitoring",
         "editable": true,
         "error": false,
         "fieldConfig": {
-          "defaults": {
-            "custom": {}
-          },
+          "defaults": {},
           "overrides": []
         },
         "fill": 1,
@@ -2519,8 +2503,11 @@
         "linewidth": 1,
         "links": [],
         "nullPointMode": "connected",
+        "options": {
+          "alertThreshold": true
+        },
         "percentage": false,
-        "pluginVersion": "7.1.5",
+        "pluginVersion": "7.5.4",
         "pointradius": 5,
         "points": false,
         "renderer": "flot",
@@ -2539,7 +2526,7 @@
         "targets": [
           {
             "alias": "$tag_host: $tag_path : $col",
-            "dsType": "influxdb",
+            "dsType": "InfluxDB-monitoring",
             "function": "mean",
             "groupBy": [
               {
@@ -2632,13 +2619,11 @@
         "bars": false,
         "dashLength": 10,
         "dashes": false,
-        "datasource": "InfluxDB",
+        "datasource": "InfluxDB-monitoring",
         "editable": true,
         "error": false,
         "fieldConfig": {
-          "defaults": {
-            "custom": {}
-          },
+          "defaults": {},
           "overrides": []
         },
         "fill": 1,
@@ -2669,8 +2654,11 @@
         "linewidth": 1,
         "links": [],
         "nullPointMode": "connected",
+        "options": {
+          "alertThreshold": true
+        },
         "percentage": false,
-        "pluginVersion": "7.1.5",
+        "pluginVersion": "7.5.4",
         "pointradius": 5,
         "points": false,
         "renderer": "flot",
@@ -2689,7 +2677,7 @@
         "targets": [
           {
             "alias": "$tag_path ($tag_fstype on $tag_device)",
-            "dsType": "influxdb",
+            "dsType": "InfluxDB-monitoring",
             "function": "mean",
             "groupBy": [
               {
@@ -2782,13 +2770,11 @@
         "bars": true,
         "dashLength": 10,
         "dashes": false,
-        "datasource": "InfluxDB",
+        "datasource": "InfluxDB-monitoring",
         "editable": true,
         "error": false,
         "fieldConfig": {
-          "defaults": {
-            "custom": {}
-          },
+          "defaults": {},
           "overrides": []
         },
         "fill": 1,
@@ -2819,8 +2805,11 @@
         "linewidth": 1,
         "links": [],
         "nullPointMode": "connected",
+        "options": {
+          "alertThreshold": true
+        },
         "percentage": false,
-        "pluginVersion": "7.1.5",
+        "pluginVersion": "7.5.4",
         "pointradius": 5,
         "points": false,
         "renderer": "flot",
@@ -2844,7 +2833,7 @@
         "targets": [
           {
             "alias": "$tag_host: $tag_path : $col",
-            "dsType": "influxdb",
+            "dsType": "InfluxDB-monitoring",
             "function": "mean",
             "groupBy": [
               {
@@ -2937,13 +2926,11 @@
         "bars": false,
         "dashLength": 10,
         "dashes": false,
-        "datasource": "InfluxDB",
+        "datasource": "InfluxDB-monitoring",
         "editable": true,
         "error": false,
         "fieldConfig": {
-          "defaults": {
-            "custom": {}
-          },
+          "defaults": {},
           "overrides": []
         },
         "fill": 1,
@@ -2974,8 +2961,11 @@
         "linewidth": 1,
         "links": [],
         "nullPointMode": "connected",
+        "options": {
+          "alertThreshold": true
+        },
         "percentage": false,
-        "pluginVersion": "7.1.5",
+        "pluginVersion": "7.5.4",
         "pointradius": 5,
         "points": false,
         "renderer": "flot",
@@ -2994,7 +2984,7 @@
         "targets": [
           {
             "alias": "$tag_path ($tag_fstype on $tag_device)",
-            "dsType": "influxdb",
+            "dsType": "InfluxDB-monitoring",
             "function": "mean",
             "groupBy": [
               {
@@ -3087,13 +3077,11 @@
         "bars": false,
         "dashLength": 10,
         "dashes": false,
-        "datasource": "InfluxDB",
+        "datasource": "InfluxDB-monitoring",
         "editable": true,
         "error": false,
         "fieldConfig": {
-          "defaults": {
-            "custom": {}
-          },
+          "defaults": {},
           "overrides": []
         },
         "fill": 1,
@@ -3124,8 +3112,11 @@
         "linewidth": 1,
         "links": [],
         "nullPointMode": "connected",
+        "options": {
+          "alertThreshold": true
+        },
         "percentage": false,
-        "pluginVersion": "7.1.5",
+        "pluginVersion": "7.5.4",
         "pointradius": 5,
         "points": false,
         "renderer": "flot",
@@ -3141,7 +3132,7 @@
         "targets": [
           {
             "alias": "$tag_host: $col",
-            "dsType": "influxdb",
+            "dsType": "InfluxDB-monitoring",
             "function": "mean",
             "groupBy": [
               {
@@ -3226,13 +3217,11 @@
         "bars": false,
         "dashLength": 10,
         "dashes": false,
-        "datasource": "InfluxDB",
+        "datasource": "InfluxDB-monitoring",
         "editable": true,
         "error": false,
         "fieldConfig": {
-          "defaults": {
-            "custom": {}
-          },
+          "defaults": {},
           "overrides": []
         },
         "fill": 1,
@@ -3263,8 +3252,11 @@
         "linewidth": 1,
         "links": [],
         "nullPointMode": "connected",
+        "options": {
+          "alertThreshold": true
+        },
         "percentage": false,
-        "pluginVersion": "7.1.5",
+        "pluginVersion": "7.5.4",
         "pointradius": 5,
         "points": false,
         "renderer": "flot",
@@ -3280,7 +3272,7 @@
         "targets": [
           {
             "alias": "$tag_host: $col",
-            "dsType": "influxdb",
+            "dsType": "InfluxDB-monitoring",
             "function": "mean",
             "groupBy": [
               {
@@ -3365,13 +3357,11 @@
         "bars": false,
         "dashLength": 10,
         "dashes": false,
-        "datasource": "InfluxDB",
+        "datasource": "InfluxDB-monitoring",
         "editable": true,
         "error": false,
         "fieldConfig": {
-          "defaults": {
-            "custom": {}
-          },
+          "defaults": {},
           "overrides": []
         },
         "fill": 1,
@@ -3404,8 +3394,11 @@
         "linewidth": 1,
         "links": [],
         "nullPointMode": "connected",
+        "options": {
+          "alertThreshold": true
+        },
         "percentage": false,
-        "pluginVersion": "7.1.5",
+        "pluginVersion": "7.5.4",
         "pointradius": 5,
         "points": false,
         "renderer": "flot",
@@ -3421,7 +3414,7 @@
         "targets": [
           {
             "alias": "$tag_host: $tag_name: $col",
-            "dsType": "influxdb",
+            "dsType": "InfluxDB-monitoring",
             "function": "mean",
             "groupBy": [
               {
@@ -3471,7 +3464,7 @@
           },
           {
             "alias": "$tag_host: $tag_name: $col",
-            "dsType": "influxdb",
+            "dsType": "InfluxDB-monitoring",
             "function": "mean",
             "groupBy": [
               {
@@ -3564,13 +3557,11 @@
         "bars": false,
         "dashLength": 10,
         "dashes": false,
-        "datasource": "InfluxDB",
+        "datasource": "InfluxDB-monitoring",
         "editable": true,
         "error": false,
         "fieldConfig": {
-          "defaults": {
-            "custom": {}
-          },
+          "defaults": {},
           "overrides": []
         },
         "fill": 1,
@@ -3603,8 +3594,11 @@
         "linewidth": 1,
         "links": [],
         "nullPointMode": "connected",
+        "options": {
+          "alertThreshold": true
+        },
         "percentage": false,
-        "pluginVersion": "7.1.5",
+        "pluginVersion": "7.5.4",
         "pointradius": 5,
         "points": false,
         "renderer": "flot",
@@ -3620,7 +3614,7 @@
         "targets": [
           {
             "alias": "$tag_host: $tag_name: $col",
-            "dsType": "influxdb",
+            "dsType": "InfluxDB-monitoring",
             "function": "mean",
             "groupBy": [
               {
@@ -3670,7 +3664,7 @@
           },
           {
             "alias": "$tag_host: $tag_name: $col",
-            "dsType": "influxdb",
+            "dsType": "InfluxDB-monitoring",
             "function": "mean",
             "groupBy": [
               {
@@ -3763,13 +3757,11 @@
         "bars": false,
         "dashLength": 10,
         "dashes": false,
-        "datasource": "InfluxDB",
+        "datasource": "InfluxDB-monitoring",
         "editable": true,
         "error": false,
         "fieldConfig": {
-          "defaults": {
-            "custom": {}
-          },
+          "defaults": {},
           "overrides": []
         },
         "fill": 1,
@@ -3802,8 +3794,11 @@
         "linewidth": 1,
         "links": [],
         "nullPointMode": "connected",
+        "options": {
+          "alertThreshold": true
+        },
         "percentage": false,
-        "pluginVersion": "7.1.5",
+        "pluginVersion": "7.5.4",
         "pointradius": 5,
         "points": false,
         "renderer": "flot",
@@ -3819,7 +3814,7 @@
         "targets": [
           {
             "alias": "$tag_host: $tag_name: $col",
-            "dsType": "influxdb",
+            "dsType": "InfluxDB-monitoring",
             "function": "mean",
             "groupBy": [
               {
@@ -3869,7 +3864,7 @@
           },
           {
             "alias": "$tag_host: $tag_name: $col",
-            "dsType": "influxdb",
+            "dsType": "InfluxDB-monitoring",
             "function": "mean",
             "groupBy": [
               {
@@ -3976,13 +3971,11 @@
         "bars": false,
         "dashLength": 10,
         "dashes": false,
-        "datasource": "InfluxDB",
+        "datasource": "InfluxDB-monitoring",
         "editable": true,
         "error": false,
         "fieldConfig": {
-          "defaults": {
-            "custom": {}
-          },
+          "defaults": {},
           "overrides": []
         },
         "fill": 1,
@@ -4012,8 +4005,11 @@
         "linewidth": 1,
         "links": [],
         "nullPointMode": "connected",
+        "options": {
+          "alertThreshold": true
+        },
         "percentage": false,
-        "pluginVersion": "7.1.5",
+        "pluginVersion": "7.5.4",
         "pointradius": 5,
         "points": false,
         "renderer": "flot",
@@ -4029,7 +4025,7 @@
         "targets": [
           {
             "alias": "$tag_host: $tag_interface: $col",
-            "dsType": "influxdb",
+            "dsType": "InfluxDB-monitoring",
             "function": "derivative",
             "groupBy": [
               {
@@ -4079,7 +4075,7 @@
           },
           {
             "alias": "$tag_host: $tag_interface: $col",
-            "dsType": "influxdb",
+            "dsType": "InfluxDB-monitoring",
             "function": "derivative",
             "groupBy": [
               {
@@ -4173,13 +4169,11 @@
         "bars": false,
         "dashLength": 10,
         "dashes": false,
-        "datasource": "InfluxDB",
+        "datasource": "InfluxDB-monitoring",
         "editable": true,
         "error": false,
         "fieldConfig": {
-          "defaults": {
-            "custom": {}
-          },
+          "defaults": {},
           "overrides": []
         },
         "fill": 1,
@@ -4209,8 +4203,11 @@
         "linewidth": 1,
         "links": [],
         "nullPointMode": "connected",
+        "options": {
+          "alertThreshold": true
+        },
         "percentage": false,
-        "pluginVersion": "7.1.5",
+        "pluginVersion": "7.5.4",
         "pointradius": 5,
         "points": false,
         "renderer": "flot",
@@ -4226,7 +4223,7 @@
         "targets": [
           {
             "alias": "$tag_host: $tag_interface: $col",
-            "dsType": "influxdb",
+            "dsType": "InfluxDB-monitoring",
             "function": "derivative",
             "groupBy": [
               {
@@ -4276,7 +4273,7 @@
           },
           {
             "alias": "$tag_host: $tag_interface: $col",
-            "dsType": "influxdb",
+            "dsType": "InfluxDB-monitoring",
             "function": "derivative",
             "groupBy": [
               {
@@ -4371,13 +4368,11 @@
         "bars": false,
         "dashLength": 10,
         "dashes": false,
-        "datasource": "InfluxDB",
+        "datasource": "InfluxDB-monitoring",
         "editable": true,
         "error": false,
         "fieldConfig": {
-          "defaults": {
-            "custom": {}
-          },
+          "defaults": {},
           "overrides": []
         },
         "fill": 1,
@@ -4410,7 +4405,7 @@
         "links": [],
         "nullPointMode": "connected",
         "percentage": false,
-        "pluginVersion": "7.1.5",
+        "pluginVersion": "7.5.4",
         "pointradius": 5,
         "points": false,
         "renderer": "flot",
@@ -4421,7 +4416,7 @@
         "targets": [
           {
             "alias": "$tag_host: $col",
-            "dsType": "influxdb",
+            "dsType": "InfluxDB-monitoring",
             "function": "derivative",
             "groupBy": [
               {
@@ -4516,13 +4511,11 @@
         "bars": false,
         "dashLength": 10,
         "dashes": false,
-        "datasource": "InfluxDB",
+        "datasource": "InfluxDB-monitoring",
         "editable": true,
         "error": false,
         "fieldConfig": {
-          "defaults": {
-            "custom": {}
-          },
+          "defaults": {},
           "overrides": []
         },
         "fill": 1,
@@ -4555,7 +4548,7 @@
         "links": [],
         "nullPointMode": "connected",
         "percentage": false,
-        "pluginVersion": "7.1.5",
+        "pluginVersion": "7.5.4",
         "pointradius": 5,
         "points": false,
         "renderer": "flot",
@@ -4566,7 +4559,7 @@
         "targets": [
           {
             "alias": "$tag_host: $col",
-            "dsType": "influxdb",
+            "dsType": "InfluxDB-monitoring",
             "function": "derivative",
             "groupBy": [
               {
@@ -4772,13 +4765,11 @@
         "bars": true,
         "dashLength": 10,
         "dashes": false,
-        "datasource": "InfluxDB",
+        "datasource": "InfluxDB-monitoring",
         "editable": true,
         "error": false,
         "fieldConfig": {
-          "defaults": {
-            "custom": {}
-          },
+          "defaults": {},
           "overrides": []
         },
         "fill": 1,
@@ -4809,7 +4800,7 @@
         "links": [],
         "nullPointMode": "connected",
         "percentage": false,
-        "pluginVersion": "7.1.5",
+        "pluginVersion": "7.5.4",
         "pointradius": 5,
         "points": false,
         "renderer": "flot",
@@ -4820,7 +4811,7 @@
         "targets": [
           {
             "alias": "$tag_host: $tag_interface: $col",
-            "dsType": "influxdb",
+            "dsType": "InfluxDB-monitoring",
             "function": "derivative",
             "groupBy": [
               {
@@ -4870,7 +4861,7 @@
           },
           {
             "alias": "$tag_host: $tag_interface: $col",
-            "dsType": "influxdb",
+            "dsType": "InfluxDB-monitoring",
             "function": "derivative",
             "groupBy": [
               {
@@ -4965,13 +4956,11 @@
         "bars": true,
         "dashLength": 10,
         "dashes": false,
-        "datasource": "InfluxDB",
+        "datasource": "InfluxDB-monitoring",
         "editable": true,
         "error": false,
         "fieldConfig": {
-          "defaults": {
-            "custom": {}
-          },
+          "defaults": {},
           "overrides": []
         },
         "fill": 1,
@@ -5002,7 +4991,7 @@
         "links": [],
         "nullPointMode": "connected",
         "percentage": false,
-        "pluginVersion": "7.1.5",
+        "pluginVersion": "7.5.4",
         "pointradius": 5,
         "points": false,
         "renderer": "flot",
@@ -5013,7 +5002,7 @@
         "targets": [
           {
             "alias": "$tag_host: $tag_interface: $col",
-            "dsType": "influxdb",
+            "dsType": "InfluxDB-monitoring",
             "function": "derivative",
             "groupBy": [
               {
@@ -5063,7 +5052,7 @@
           },
           {
             "alias": "$tag_host: $tag_interface: $col",
-            "dsType": "influxdb",
+            "dsType": "InfluxDB-monitoring",
             "function": "derivative",
             "groupBy": [
               {
@@ -5155,22 +5144,19 @@
       }
     ],
     "refresh": false,
-    "schemaVersion": 26,
+    "schemaVersion": 27,
     "style": "dark",
-    "tags": [
-      "influxdb",
-      "telegraf"
-    ],
+    "tags": [],
     "templating": {
       "list": [
         {
-          "allFormat": "glob",
           "current": {
             "selected": false,
-            "text": "InfluxDB",
-            "value": "InfluxDB"
+            "text": "InfluxDB-iot",
+            "value": "InfluxDB-iot"
           },
-          "datasource": "InfluxDB",
+          "description": null,
+          "error": null,
           "hide": 0,
           "includeAll": false,
           "label": "",
@@ -5187,7 +5173,6 @@
           "allValue": null,
           "current": {
             "selected": true,
-            "tags": [],
             "text": [
               "pi-bose"
             ],
@@ -5195,8 +5180,10 @@
               "pi-bose"
             ]
           },
-          "datasource": "InfluxDB",
+          "datasource": "InfluxDB-monitoring",
           "definition": "",
+          "description": null,
+          "error": null,
           "hide": 0,
           "includeAll": false,
           "label": "Server",
@@ -5224,6 +5211,8 @@
             "value": "$__auto_interval_inter"
           },
           "datasource": null,
+          "description": null,
+          "error": null,
           "hide": 0,
           "includeAll": false,
           "label": "Interval",
@@ -5329,12 +5318,19 @@
         {
           "allValue": null,
           "current": {
-            "selected": false,
-            "text": "All",
-            "value": "$__all"
+            "selected": true,
+            "tags": [],
+            "text": [
+              "All"
+            ],
+            "value": [
+              "$__all"
+            ]
           },
           "datasource": "$datasource",
           "definition": "",
+          "description": null,
+          "error": null,
           "hide": 0,
           "includeAll": true,
           "label": "CPU",
@@ -5355,12 +5351,19 @@
         {
           "allValue": null,
           "current": {
-            "selected": false,
-            "text": "All",
-            "value": "$__all"
+            "selected": true,
+            "tags": [],
+            "text": [
+              "All"
+            ],
+            "value": [
+              "$__all"
+            ]
           },
           "datasource": "$datasource",
           "definition": "",
+          "description": null,
+          "error": null,
           "hide": 0,
           "includeAll": true,
           "label": "disk",
@@ -5387,6 +5390,8 @@
           },
           "datasource": "$datasource",
           "definition": "",
+          "description": null,
+          "error": null,
           "hide": 0,
           "includeAll": true,
           "label": "interface",
@@ -5438,5 +5443,5 @@
     "timezone": "browser",
     "title": "System",
     "uid": "TKY_eVRgz",
-    "version": 1
+    "version": 3
   }

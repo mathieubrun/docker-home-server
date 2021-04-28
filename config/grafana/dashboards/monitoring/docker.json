@@ -13,11 +13,10 @@
       ]
     },
     "description": "Docker Metrics with influx and Telegraf",
-    "editable": false,
+    "editable": true,
     "gnetId": 10585,
     "graphTooltip": 0,
-    "id": 7,
-    "iteration": 1598214242170,
+    "iteration": 1619635750197,
     "links": [],
     "panels": [
       {
@@ -29,11 +28,9 @@
           "rgba(237, 129, 40, 0.89)",
           "#d44a3a"
         ],
-        "datasource": "InfluxDB",
+        "datasource": "InfluxDB-monitoring",
         "fieldConfig": {
-          "defaults": {
-            "custom": {}
-          },
+          "defaults": {},
           "overrides": []
         },
         "format": "none",
@@ -146,11 +143,9 @@
           "#629e51",
           "#bf1b00"
         ],
-        "datasource": "InfluxDB",
+        "datasource": "InfluxDB-monitoring",
         "fieldConfig": {
-          "defaults": {
-            "custom": {}
-          },
+          "defaults": {},
           "overrides": []
         },
         "format": "none",
@@ -268,11 +263,9 @@
           "#e0752d",
           "#bf1b00"
         ],
-        "datasource": "InfluxDB",
+        "datasource": "InfluxDB-monitoring",
         "fieldConfig": {
-          "defaults": {
-            "custom": {}
-          },
+          "defaults": {},
           "overrides": []
         },
         "format": "none",
@@ -383,11 +376,9 @@
       },
       {
         "columns": [],
-        "datasource": "InfluxDB",
+        "datasource": "InfluxDB-monitoring",
         "fieldConfig": {
-          "defaults": {
-            "custom": {}
-          },
+          "defaults": {},
           "overrides": []
         },
         "fontSize": "100%",
@@ -527,12 +518,10 @@
         "bars": false,
         "dashLength": 10,
         "dashes": false,
-        "datasource": "InfluxDB",
+        "datasource": "InfluxDB-monitoring",
         "decimals": 0,
         "fieldConfig": {
-          "defaults": {
-            "custom": {}
-          },
+          "defaults": {},
           "overrides": []
         },
         "fill": 5,
@@ -562,8 +551,11 @@
         "linewidth": 2,
         "links": [],
         "nullPointMode": "null",
+        "options": {
+          "alertThreshold": true
+        },
         "percentage": false,
-        "pluginVersion": "7.1.3",
+        "pluginVersion": "7.5.4",
         "pointradius": 5,
         "points": false,
         "renderer": "flot",
@@ -692,12 +684,10 @@
         "bars": false,
         "dashLength": 10,
         "dashes": false,
-        "datasource": "InfluxDB",
+        "datasource": "InfluxDB-monitoring",
         "decimals": 0,
         "fieldConfig": {
-          "defaults": {
-            "custom": {}
-          },
+          "defaults": {},
           "overrides": []
         },
         "fill": 5,
@@ -727,8 +717,11 @@
         "linewidth": 2,
         "links": [],
         "nullPointMode": "null",
+        "options": {
+          "alertThreshold": true
+        },
         "percentage": false,
-        "pluginVersion": "7.1.3",
+        "pluginVersion": "7.5.4",
         "pointradius": 5,
         "points": false,
         "renderer": "flot",
@@ -859,12 +852,10 @@
         "bars": false,
         "dashLength": 10,
         "dashes": false,
-        "datasource": "InfluxDB",
+        "datasource": "InfluxDB-monitoring",
         "decimals": 0,
         "fieldConfig": {
-          "defaults": {
-            "custom": {}
-          },
+          "defaults": {},
           "overrides": []
         },
         "fill": 5,
@@ -894,8 +885,11 @@
         "linewidth": 2,
         "links": [],
         "nullPointMode": "null",
+        "options": {
+          "alertThreshold": true
+        },
         "percentage": false,
-        "pluginVersion": "7.1.3",
+        "pluginVersion": "7.5.4",
         "pointradius": 5,
         "points": false,
         "renderer": "flot",
@@ -1067,12 +1061,10 @@
         "bars": false,
         "dashLength": 10,
         "dashes": false,
-        "datasource": "InfluxDB",
+        "datasource": "InfluxDB-monitoring",
         "decimals": 0,
         "fieldConfig": {
-          "defaults": {
-            "custom": {}
-          },
+          "defaults": {},
           "overrides": []
         },
         "fill": 5,
@@ -1102,8 +1094,11 @@
         "linewidth": 2,
         "links": [],
         "nullPointMode": "connected",
+        "options": {
+          "alertThreshold": true
+        },
         "percentage": false,
-        "pluginVersion": "7.1.3",
+        "pluginVersion": "7.5.4",
         "pointradius": 5,
         "points": false,
         "renderer": "flot",
@@ -1271,24 +1266,26 @@
         }
       }
     ],
-    "schemaVersion": 26,
+    "schemaVersion": 27,
     "style": "dark",
-    "tags": [
-      "Docker",
-      "Telegraf",
-      "InfluxDB"
-    ],
+    "tags": [],
     "templating": {
       "list": [
         {
           "allValue": null,
           "current": {
             "selected": false,
-            "text": "All",
-            "value": "$__all"
+            "text": [
+              "nuc-srv1"
+            ],
+            "value": [
+              "nuc-srv1"
+            ]
           },
-          "datasource": "InfluxDB",
+          "datasource": "InfluxDB-monitoring",
           "definition": "",
+          "description": null,
+          "error": null,
           "hide": 0,
           "includeAll": true,
           "label": "Host",
@@ -1310,11 +1307,17 @@
           "allValue": null,
           "current": {
             "selected": false,
-            "text": "All",
-            "value": "$__all"
+            "text": [
+              "All"
+            ],
+            "value": [
+              "$__all"
+            ]
           },
-          "datasource": "InfluxDB",
+          "datasource": "InfluxDB-monitoring",
           "definition": "",
+          "description": null,
+          "error": null,
           "hide": 0,
           "includeAll": true,
           "label": "Docker_Stack",
@@ -1366,5 +1369,5 @@
     "timezone": "",
     "title": "Docker",
     "uid": "iMowdtHZz",
-    "version": 1
+    "version": 3
   }

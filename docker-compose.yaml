@@ -21,11 +21,8 @@ services:
       - --entrypoints.web.http.redirections.entryPoint.to=websecure
       - --entrypoints.web.http.redirections.entryPoint.scheme=https
       - --entrypoints.web.http.redirections.entrypoint.permanent=true
-      - --metrics.influxdb=true
-      - --metrics.influxdb.address=db_influxdb:8089
-      - --metrics.influxdb.database=iot
-      - --metrics.influxdb.username=writer
-      - --metrics.influxdb.password=${INFLUXDB_WRITE_PASSWORD}
+      - --metrics.prometheus=true
+      - --metrics.prometheus.entryPoint=web
     environment:
       - DO_AUTH_TOKEN
     extra_hosts:
@@ -40,12 +37,13 @@ services:
     ports:
       - 80:80
       - 443:443
+      - 9000:9000
     volumes:
       - ./data/traefik:/letsencrypt
       - /var/run/docker.sock:/var/run/docker.sock
 
   mon_grafana:
-    image: grafana/grafana:7.5.4
+    image: grafana/grafana:7.5.5
     container_name: mon_grafana
     hostname: mon_grafana
     depends_on:
@@ -54,7 +52,7 @@ services:
     restart: always
     user: "1000"
     environment:
-      - INFLUXDB_READ_PASSWORD
+      - INFLUXDB_GRAFANA_TOKEN
       - GF_DASHBOARDS_DEFAULT_HOME_DASHBOARD_PATH=/var/lib/grafana/dashboards/monitoring/alerting.json
       - GF_SERVER_DOMAIN=grafana.${TRAEFIK_DOMAIN}
       - GF_SERVER_ROOT_URL=%(protocol)s://%(domain)s/
@@ -103,20 +101,17 @@ services:
       - ./data/loki:/loki
 
   db_influxdb:
-    image: influxdb:1.8.3
+    image: influxdb:2.0.5
     container_name: db_influxdb
     hostname: db_influxdb
     restart: always
     environment:
+      - DOCKER_INFLUXDB_INIT_USERNAME=admin
+      - DOCKER_INFLUXDB_INIT_PASSWORD=${INFLUXDB_ADMIN_PASSWORD}
+      - DOCKER_INFLUXDB_INIT_ORG=home
+      - DOCKER_INFLUXDB_INIT_BUCKET=monitoring
       - INFLUXDB_HTTP_LOG_ENABLED=false
       - INFLUXDB_REPORTING_DISABLED=true
-      - INFLUXDB_DB=iot
-      - INFLUXDB_READ_USER=reader
-      - INFLUXDB_READ_USER_PASSWORD=${INFLUXDB_READ_PASSWORD}
-      - INFLUXDB_WRITE_USER=writer
-      - INFLUXDB_WRITE_USER_PASSWORD=${INFLUXDB_WRITE_PASSWORD}
-      - INFLUXDB_UDP_ENABLED=true
-      - INFLUXDB_UDP_DATABASE=iot
     labels:
       - traefik.enable=true
       - traefik.http.routers.influxdb.rule=Host(`influxdb.${TRAEFIK_DOMAIN}`)
@@ -124,7 +119,7 @@ services:
       - traefik.http.routers.influxdb.tls.certresolver=myresolver
       - traefik.http.services.influxdb.loadbalancer.server.port=8086
     volumes:
-      - ./data/influxdb:/var/lib/influxdb
+      - ./data/influxdb2:/var/lib/influxdb2
 
   net_pihole:
     image: pihole/pihole:v5.8
