@@ -101,7 +101,7 @@ services:
       - ./data/loki:/loki
 
   db_influxdb:
-    image: influxdb:2.0.5
+    image: influxdb:2.0.6
     container_name: db_influxdb
     hostname: db_influxdb
     restart: always
@@ -206,7 +206,7 @@ services:
       - ./data/nodered:/data
 
   iot_zigbee2mqtt:
-    image: koenkk/zigbee2mqtt:1.18.2
+    image: koenkk/zigbee2mqtt:1.18.3
     container_name: iot_zigbee2mqtt
     hostname: iot_zigbee2mqtt
     restart: always
