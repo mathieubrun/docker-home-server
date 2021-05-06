@@ -29,6 +29,7 @@
     "editable": true,
     "gnetId": null,
     "graphTooltip": 0,
+    "id": null,
     "links": [],
     "panels": [
       {
@@ -102,7 +103,7 @@
           "alertThreshold": true
         },
         "percentage": false,
-        "pluginVersion": "7.5.4",
+        "pluginVersion": "7.5.5",
         "pointradius": 2,
         "points": false,
         "renderer": "flot",
@@ -291,7 +292,7 @@
           "alertThreshold": true
         },
         "percentage": false,
-        "pluginVersion": "7.5.4",
+        "pluginVersion": "7.5.5",
         "pointradius": 2,
         "points": false,
         "renderer": "flot",
@@ -528,7 +529,7 @@
           "alertThreshold": true
         },
         "percentage": false,
-        "pluginVersion": "7.5.4",
+        "pluginVersion": "7.5.5",
         "pointradius": 2,
         "points": false,
         "renderer": "flot",
@@ -718,7 +719,7 @@
           "alertThreshold": true
         },
         "percentage": false,
-        "pluginVersion": "7.5.4",
+        "pluginVersion": "7.5.5",
         "pointradius": 2,
         "points": false,
         "renderer": "flot",
@@ -907,7 +908,7 @@
           "alertThreshold": true
         },
         "percentage": false,
-        "pluginVersion": "7.5.4",
+        "pluginVersion": "7.5.5",
         "pointradius": 2,
         "points": true,
         "renderer": "flot",
@@ -1012,7 +1013,7 @@
             {
               "evaluator": {
                 "params": [
-                  1
+                  2
                 ],
                 "type": "gt"
               },
@@ -1076,7 +1077,7 @@
           "alertThreshold": true
         },
         "percentage": false,
-        "pluginVersion": "7.5.4",
+        "pluginVersion": "7.5.5",
         "pointradius": 2,
         "points": false,
         "renderer": "flot",
@@ -1135,7 +1136,7 @@
             "fill": true,
             "line": true,
             "op": "gt",
-            "value": 1,
+            "value": 2,
             "visible": true
           }
         ],
@@ -1163,7 +1164,7 @@
             "format": "s",
             "label": null,
             "logBase": 1,
-            "max": "1.2",
+            "max": "2.4",
             "min": null,
             "show": true
           },
@@ -1253,7 +1254,7 @@
           "alertThreshold": true
         },
         "percentage": false,
-        "pluginVersion": "7.5.4",
+        "pluginVersion": "7.5.5",
         "pointradius": 2,
         "points": false,
         "renderer": "flot",
@@ -1430,7 +1431,7 @@
           "alertThreshold": true
         },
         "percentage": false,
-        "pluginVersion": "7.5.4",
+        "pluginVersion": "7.5.5",
         "pointradius": 2,
         "points": false,
         "renderer": "flot",
@@ -1554,5 +1555,5 @@
     "timezone": "",
     "title": "Alerting",
     "uid": "0pHXqdXMk",
-    "version": 28
+    "version": 29
   }
