@@ -43,7 +43,7 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
 
   mon_grafana:
-    image: grafana/grafana:7.5.5
+    image: grafana/grafana:7.5.6
     container_name: mon_grafana
     hostname: mon_grafana
     depends_on:
