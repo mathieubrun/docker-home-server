@@ -2,7 +2,7 @@ version: '3.5'
 
 services:
   net_ingress:
-    image: traefik:v2.4.8
+    image: traefik:v2.4.13
     container_name: net_ingress
     hostname: net_ingress
     restart: always
@@ -37,13 +37,12 @@ services:
     ports:
       - 80:80
       - 443:443
-      - 9000:9000
     volumes:
       - ./data/traefik:/letsencrypt
       - /var/run/docker.sock:/var/run/docker.sock
 
   mon_grafana:
-    image: grafana/grafana:7.5.6
+    image: grafana/grafana:8.1.0
     container_name: mon_grafana
     hostname: mon_grafana
     depends_on:
@@ -57,10 +56,6 @@ services:
       - GF_SERVER_DOMAIN=grafana.${TRAEFIK_DOMAIN}
       - GF_SERVER_ROOT_URL=%(protocol)s://%(domain)s/
       - GF_SECURITY_ADMIN_PASSWORD=${GRAFANA_ADMIN_PASSWORD}
-      - GF_SMTP_ENABLED
-      - GF_SMTP_HOST
-      - GF_SMTP_USER
-      - GF_SMTP_PASSWORD
     labels:
       - traefik.enable=true
       - traefik.http.routers.grafana.rule=Host(`grafana.${TRAEFIK_DOMAIN}`)
@@ -68,12 +63,12 @@ services:
       - traefik.http.routers.grafana.tls.certresolver=myresolver
       - traefik.http.services.grafana.loadbalancer.server.port=3000
     volumes:
-      - ./data/grafana:/var/lib/grafana
+      - ./data/grafana8:/var/lib/grafana
       - ./config/grafana/provisioning:/etc/grafana/provisioning
       - ./config/grafana/dashboards:/var/lib/grafana/dashboards
 
   mon_promtail:
-    image: grafana/promtail:1.6.0
+    image: grafana/promtail:2.2.1
     container_name: mon_promtail
     hostname: mon_promtail
     restart: always
@@ -206,7 +201,7 @@ services:
       - ./data/nodered:/data
 
   iot_zigbee2mqtt:
-    image: koenkk/zigbee2mqtt:1.18.3
+    image: koenkk/zigbee2mqtt:1.21.0
     container_name: iot_zigbee2mqtt
     hostname: iot_zigbee2mqtt
     restart: always
@@ -236,13 +231,13 @@ services:
       - ./data/zigbee2mqtt:/app/data
 
   fil_nextcloud:
-    image: nextcloud:21.0.1-apache
+    image: nextcloud:21.0.2-apache
     container_name: fil_nextcloud
     depends_on:
-      - db_postgres
+      - db_postgres_nextcloud
     environment:
       - POSTGRES_DB=nextcloud
-      - POSTGRES_HOST=db_postgres
+      - POSTGRES_HOST=db_postgres_nextcloud
       - POSTGRES_USER=nextcloud
       - POSTGRES_PASSWORD=$POSTGRES_PASSWORD
       - NEXTCLOUD_ADMIN_USER=admin
@@ -283,11 +278,11 @@ services:
       - traefik.http.routers.collabora.tls.certresolver=myresolver
       - traefik.http.services.collabora.loadbalancer.server.port=9980
 
-  db_postgres:
+  db_postgres_nextcloud:
     image: postgres:12.5-alpine
-    container_name: db_postgres
+    container_name: db_postgres_nextcloud
     volumes:
-      - ./data/postgres:/var/lib/postgresql/data
+      - ./data/postgres_nextcloud:/var/lib/postgresql/data
     environment:
       - POSTGRES_USER=nextcloud
       - POSTGRES_DATABASE=nextcloud
