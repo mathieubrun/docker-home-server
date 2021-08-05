@@ -1,0 +1,10 @@
+[Unit]
+Description=Daily backup
+Requires=network-online.target home-mathieu-services-config.mount
+
+[Service]
+Type=oneshot
+User=mathieu
+Group=mathieu
+TimeoutStartSec=10h
+ExecStart=/usr/local/bin/daily_backup.sh
