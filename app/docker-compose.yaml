@@ -13,6 +13,7 @@ services:
       - --providers.docker.exposedbydefault=false
       - --entrypoints.web.address=:80
       - --entrypoints.websecure.address=:443
+      - --entrypoints.mqtt.address=:8883
       - --certificatesresolvers.myresolver.acme.dnschallenge=true
       - --certificatesresolvers.myresolver.acme.dnschallenge.provider=digitalocean
       # - --certificatesresolvers.myresolver.acme.caserver=https://acme-staging-v02.api.letsencrypt.org/directory
@@ -37,6 +38,7 @@ services:
     ports:
       - 80:80
       - 443:443
+      - 8883:8883
     volumes:
       - ./data/traefik:/letsencrypt
       - /var/run/docker.sock:/var/run/docker.sock
@@ -171,15 +173,21 @@ services:
       - traefik.http.services.cups.loadbalancer.server.port=631
 
   iot_mosquitto:
-    image: eclipse-mosquitto:1.6.10
+    image: eclipse-mosquitto:1.6.15-openssl
     container_name: iot_mosquitto
     hostname: iot_mosquitto
     restart: always
-    ports:
-      - 127.0.0.1:1883:1883
     volumes:
       - ./data/mosquitto:/mosquitto/data
       - ./config/mosquitto/mosquitto.conf:/mosquitto/config/mosquitto.conf
+    labels:
+      - traefik.enable=true
+      - traefik.tcp.routers.mqtt.rule=HostSNI(`mqtt.${TRAEFIK_DOMAIN}`)
+      - traefik.tcp.routers.mqtt.entrypoints=mqtt
+      - traefik.tcp.routers.mqtt.tls=true
+      - traefik.tcp.routers.mqtt.service=mqtt
+      - traefik.tcp.services.mqtt.loadBalancer.server.port=1883
+
 
   iot_nodered:
     image: nodered/node-red:1.2.9-12
@@ -201,24 +209,25 @@ services:
       - ./data/nodered:/data
 
   iot_zigbee2mqtt:
-    image: koenkk/zigbee2mqtt:1.21.0
+    image: koenkk/zigbee2mqtt:1.21.1
     container_name: iot_zigbee2mqtt
     hostname: iot_zigbee2mqtt
     restart: always
     depends_on:
       - iot_mosquitto
     devices:
-      - /dev/ttyACM0
+      - ${ZIGBEE_DEVICE}
     environment:
       - TZ=${TZ}
       - ZIGBEE2MQTT_CONFIG_FRONTEND_PORT=8080
       - ZIGBEE2MQTT_CONFIG_HOMEASSISTANT=false
       - ZIGBEE2MQTT_CONFIG_PERMIT_JOIN=false
-      - ZIGBEE2MQTT_CONFIG_MQTT_SERVER=mqtt://iot_mosquitto
+      - ZIGBEE2MQTT_CONFIG_MQTT_SERVER=mqtts://mqtt.${TRAEFIK_DOMAIN}
       - ZIGBEE2MQTT_CONFIG_MQTT_BASE_TOPIC=zigbee2mqtt
       - ZIGBEE2MQTT_CONFIG_MQTT_INCLUDE_DEVICE_INFORMATION=true
-      - ZIGBEE2MQTT_CONFIG_SERIAL_PORT=/dev/ttyACM0
-      - ZIGBEE2MQTT_CONFIG_SERIAL_DISABLE_LED=true
+      - ZIGBEE2MQTT_CONFIG_SERIAL_PORT=${ZIGBEE_DEVICE}
+      - ZIGBEE2MQTT_CONFIG_SERIAL_DISABLE_LED=${ZIGBEE_DISABLE_LED}
+      - ZIGBEE2MQTT_CONFIG_SERIAL_ADAPTER=${ZIGBEE_ADAPTER}
       - ZIGBEE2MQTT_CONFIG_ADVANCED_LOG_LEVEL=warn
       - ZIGBEE2MQTT_CONFIG_ADVANCED_LOG_OUTPUT_0=console
     labels:
