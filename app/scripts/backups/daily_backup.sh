@@ -12,7 +12,7 @@ DATA_FOLDER=$DOCKER_FOLDER/data
 RCLONE_BACKUP_NEXTCLOUD_ROOT=$DATA_FOLDER/nextcloud
 RCLONE_BACKUP_NEXTCLOUD_FOLDERS=(config data themes)
 
-NEXTCLOUD_DB_BACKUP_FILE=$DATA_FOLDER/nextcloud_backup.sql.gz
+NEXTCLOUD_DB_BACKUP_FILE=$DATA_FOLDER/nextcloud_backup_$(date +"%Y%m%d_%H%M").sql.gz
 
 echo "==== Starting google photos backup ===="
 rclone --config "$RCLONE_CONFIG" --log-level INFO copy gphotos-perso:media/by-month nextcloud:photos/gphotos
