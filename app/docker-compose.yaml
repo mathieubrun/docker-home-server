@@ -44,7 +44,7 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
 
   mon_grafana:
-    image: grafana/grafana:8.1.0
+    image: grafana/grafana:8.1.3
     container_name: mon_grafana
     hostname: mon_grafana
     depends_on:
@@ -81,7 +81,7 @@ services:
     command: -config.file=/etc/promtail/config.yml
 
   db_loki:
-    image: grafana/loki:2.2.1
+    image: grafana/loki:2.3.0
     container_name: db_loki
     hostname: db_loki
     restart: always
@@ -119,7 +119,7 @@ services:
       - ./data/influxdb2:/var/lib/influxdb2
 
   net_pihole:
-    image: pihole/pihole:v5.8
+    image: pihole/pihole:v5.8.1
     container_name: net_pihole
     hostname: net_pihole
     restart: always
@@ -130,8 +130,7 @@ services:
       - 53:53/udp
     environment:
       - TZ=${TZ}
-      - DNS1=10.0.0.2#5053
-      - DNS2=10.0.0.2#5053
+      - PIHOLE_DNS_=10.0.0.2#5053
       - WEBPASSWORD=${PI_HOLE_PASSWORD}
     labels:
       - traefik.enable=true
@@ -144,7 +143,7 @@ services:
       - ./data/pihole/config/etc-dnsmasq.d/:/etc/dnsmasq.d/
 
   net_unbound:
-    image: klutchell/unbound
+    image: klutchell/unbound:1.13.2
     container_name: net_unbound
     hostname: net_unbound
     restart: always
@@ -190,7 +189,7 @@ services:
 
 
   iot_nodered:
-    image: nodered/node-red:1.2.9-12
+    image: nodered/node-red:2.0.6-12
     container_name: iot_nodered
     hostname: iot_nodered
     restart: always
@@ -199,12 +198,13 @@ services:
       - iot_zigbee2mqtt
     environment:
       - TZ=${TZ}
+      - NODERED_CREDENTIALS_SECRET=${NODERED_CREDENTIALS_SECRET}
     labels:
       - traefik.enable=true
       - traefik.http.routers.nodered.rule=Host(`nodered.${TRAEFIK_DOMAIN}`)
       - traefik.http.routers.nodered.tls=true
       - traefik.http.routers.nodered.tls.certresolver=myresolver
-      - traefik.port=1880
+      - traefik.http.services.nodered.loadbalancer.server.port=1880
     volumes:
       - ./data/nodered:/data
 
@@ -269,23 +269,6 @@ services:
       - traefik.http.middlewares.nextcloud_redirect.redirectregex.regex=/.well-known/(card|cal)dav
       - traefik.http.middlewares.nextcloud_redirect.redirectregex.replacement=/remote.php/dav/
 
-  fil_collabora:
-    image: collabora/code:6.4.4.2
-    container_name: fil_collabora
-    restart: always
-    cap_add:
-      - MKNOD
-    environment:
-      - DONT_GEN_SSL_CERT=true
-      - extra_params=--o:ssl.termination=true --o:ssl.enable=false
-      - username=admin
-      - password=$COLLABORA_PASSWORD
-    labels:
-      - traefik.enable=true
-      - traefik.http.routers.collabora.rule=Host(`collabora.${TRAEFIK_DOMAIN}`)
-      - traefik.http.routers.collabora.tls=true
-      - traefik.http.routers.collabora.tls.certresolver=myresolver
-      - traefik.http.services.collabora.loadbalancer.server.port=9980
 
   db_postgres_nextcloud:
     image: postgres:12.5-alpine
