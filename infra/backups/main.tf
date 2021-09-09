@@ -24,7 +24,7 @@ module "backups_bucket" {
     {
       id      = "ExpireNonCurrentVersions"
       enabled = true
-      prefix  = var.host
+      prefix  = "${var.host}/nextcloud/files/"
       noncurrent_version_expiration = {
         days = 180
       }
@@ -32,9 +32,13 @@ module "backups_bucket" {
     {
       id      = "ExpireNextcloudBackups"
       enabled = true
-      prefix  = "${var.host}/nextcloud/database"
-      noncurrent_version_expiration = {
+      prefix  = "${var.host}/nextcloud/database/"
+
+      expiration = {
         days = 30
+      }
+      noncurrent_version_expiration = {
+        days = 1
       }
     }
   ]
