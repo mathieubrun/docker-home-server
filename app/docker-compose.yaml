@@ -2,7 +2,7 @@ version: '3.5'
 
 services:
   net_ingress:
-    image: traefik:v2.4.13
+    image: traefik:v2.6.1
     container_name: net_ingress
     hostname: net_ingress
     restart: always
@@ -44,7 +44,7 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
 
   mon_grafana:
-    image: grafana/grafana:8.2.2
+    image: grafana/grafana:8.4.3
     container_name: mon_grafana
     hostname: mon_grafana
     depends_on:
@@ -70,7 +70,7 @@ services:
       - ./config/grafana/dashboards:/var/lib/grafana/dashboards
 
   mon_promtail:
-    image: grafana/promtail:2.2.1
+    image: grafana/promtail:2.5.0
     container_name: mon_promtail
     hostname: mon_promtail
     restart: always
@@ -81,7 +81,7 @@ services:
     command: -config.file=/etc/promtail/config.yml
 
   db_loki:
-    image: grafana/loki:2.3.0
+    image: grafana/loki:2.5.0
     container_name: db_loki
     hostname: db_loki
     restart: always
@@ -98,7 +98,7 @@ services:
       - ./data/loki:/loki
 
   db_influxdb:
-    image: influxdb:2.0.9
+    image: influxdb:2.2.0
     container_name: db_influxdb
     hostname: db_influxdb
     restart: always
@@ -119,7 +119,7 @@ services:
       - ./data/influxdb2:/var/lib/influxdb2
 
   net_pihole:
-    image: pihole/pihole:2021.10.1
+    image: pihole/pihole:2022.02.1
     container_name: net_pihole
     hostname: net_pihole
     restart: always
@@ -193,7 +193,7 @@ services:
       - traefik.tcp.services.mqtt.loadBalancer.server.port=1883
 
   iot_nodered:
-    image: nodered/node-red:2.1.3
+    image: nodered/node-red:2.2.2
     container_name: iot_nodered
     hostname: iot_nodered
     restart: always
@@ -212,41 +212,8 @@ services:
     volumes:
       - ./data/nodered:/data
 
-  # iot_zigbee2mqtt2:
-  #   image: koenkk/zigbee2mqtt:1.21.1
-  #   container_name: iot_zigbee2mqtt2
-  #   hostname: iot_zigbee2mqtt2
-  #   restart: always
-  #   depends_on:
-  #     - iot_mosquitto
-  #   devices:
-  #     - /dev/ttyACM0
-  #   environment:
-  #     - TZ=${TZ}
-  #     - ZIGBEE2MQTT_CONFIG_FRONTEND_PORT=8080
-  #     - ZIGBEE2MQTT_CONFIG_HOMEASSISTANT=false
-  #     - ZIGBEE2MQTT_CONFIG_PERMIT_JOIN=false
-  #     - ZIGBEE2MQTT_CONFIG_MQTT_SERVER=mqtts://mqtt.${TRAEFIK_DOMAIN}
-  #     - ZIGBEE2MQTT_CONFIG_MQTT_USER=${MOSQUITTO_USERNAME}
-  #     - ZIGBEE2MQTT_CONFIG_MQTT_PASSWORD=${MOSQUITTO_PASSWORD}
-  #     - ZIGBEE2MQTT_CONFIG_MQTT_BASE_TOPIC=zigbee2mqtt2
-  #     - ZIGBEE2MQTT_CONFIG_MQTT_INCLUDE_DEVICE_INFORMATION=true
-  #     - ZIGBEE2MQTT_CONFIG_SERIAL_PORT=/dev/ttyACM0
-  #     - ZIGBEE2MQTT_CONFIG_SERIAL_DISABLE_LED=true
-  #     - ZIGBEE2MQTT_CONFIG_SERIAL_ADAPTER=zstack
-  #     - ZIGBEE2MQTT_CONFIG_ADVANCED_LOG_LEVEL=warn
-  #     - ZIGBEE2MQTT_CONFIG_ADVANCED_LOG_OUTPUT_0=console
-  #   labels:
-  #     - traefik.enable=true
-  #     - traefik.http.routers.zigbee2mqtt2.rule=Host(`zigbee2.${TRAEFIK_DOMAIN}`)
-  #     - traefik.http.routers.zigbee2mqtt2.tls=true
-  #     - traefik.http.routers.zigbee2mqtt2.tls.certresolver=myresolver
-  #     - traefik.http.services.zigbee2mqtt2.loadbalancer.server.port=8080
-  #   volumes:
-  #     - ./data/zigbee2mqtt2:/app/data
-
   iot_zigbee2mqtt:
-    image: koenkk/zigbee2mqtt:1.21.2
+    image: koenkk/zigbee2mqtt:1.24.0
     container_name: iot_zigbee2mqtt
     hostname: iot_zigbee2mqtt
     restart: always
@@ -279,7 +246,7 @@ services:
       - ./data/zigbee2mqtt:/app/data
 
   fil_nextcloud:
-    image: nextcloud:22.2.0-apache
+    image: nextcloud:23.0.2-apache
     container_name: fil_nextcloud
     depends_on:
       - db_postgres_nextcloud
@@ -307,7 +274,6 @@ services:
       - traefik.http.middlewares.nextcloud_redirect.redirectregex.permanent=true
       - traefik.http.middlewares.nextcloud_redirect.redirectregex.regex=/.well-known/(card|cal)dav
       - traefik.http.middlewares.nextcloud_redirect.redirectregex.replacement=/remote.php/dav/
-
 
   db_postgres_nextcloud:
     image: postgres:12.5-alpine
