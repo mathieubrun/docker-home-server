@@ -2,45 +2,43 @@ module "device" {
   source = "./device"
 
   user       = var.host
-  bucket_arn = module.backups_bucket.s3_bucket_arn
+  bucket_arn = aws_s3_bucket.bucket.arn
 }
 
-module "backups_bucket" {
-  source = "terraform-aws-modules/s3-bucket/aws"
+resource "aws_s3_bucket" "bucket" {
 
   bucket = var.bucket
-  acl    = "private"
+
+}
+
+resource "aws_s3_bucket_versioning" "bucket" {
+  bucket = aws_s3_bucket.bucket.id
+  versioning_configuration {
+    status = "Enabled"
+  }
+}
+
+resource "aws_s3_bucket_lifecycle_configuration" "bucket" {
+  bucket = aws_s3_bucket.bucket.id
+
+  rule {
+    id     = "ExpireOldVersions"
+    status = "Enabled"
+    filter {
+      prefix = var.host
+    }
+    noncurrent_version_expiration {
+      noncurrent_days = 180
+      newer_noncurrent_versions = 30
+    }
+  }
+}
+
+resource "aws_s3_bucket_public_access_block" "bucket" {
+  bucket = aws_s3_bucket.bucket.id
 
   block_public_acls       = true
   block_public_policy     = true
   ignore_public_acls      = true
   restrict_public_buckets = true
-
-  versioning = {
-    enabled = true
-  }
-
-  lifecycle_rule = [
-    {
-      id      = "ExpireNonCurrentVersions"
-      enabled = true
-      prefix  = "${var.host}/nextcloud/files/"
-      noncurrent_version_expiration = {
-        days = 180
-      }
-    },
-    {
-      id      = "ExpireNextcloudBackups"
-      enabled = true
-      prefix  = "${var.host}/nextcloud/database/"
-
-      expiration = {
-        days = 30
-      }
-      noncurrent_version_expiration = {
-        days = 1
-      }
-    }
-  ]
 }
-
