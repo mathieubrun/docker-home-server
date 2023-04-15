@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+timeout -k 120 28800 /usr/local/bin/daily_backup.sh

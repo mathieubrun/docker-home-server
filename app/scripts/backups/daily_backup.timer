@@ -1,9 +1,0 @@
-[Unit]
-Description=Daily backup
-
-[Timer]
-Unit=daily_backup.service
-OnCalendar=*-*-* 22:00:00
-
-[Install]
-WantedBy=timers.target network-online.target home-mathieu-services-config.mount

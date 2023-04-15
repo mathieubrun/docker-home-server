@@ -11,17 +11,18 @@ services:
       - --api
       - --providers.docker=true
       - --providers.docker.exposedbydefault=false
-      - --entrypoints.web.address=:80
       - --entrypoints.websecure.address=:443
+      - --entrypoints.web.address=:80
       - --entrypoints.mqtt.address=:8883
+      # - --certificatesresolvers.myresolver.tailscale=true
       - --certificatesresolvers.myresolver.acme.dnschallenge=true
       - --certificatesresolvers.myresolver.acme.dnschallenge.provider=digitalocean
       # - --certificatesresolvers.myresolver.acme.caserver=https://acme-staging-v02.api.letsencrypt.org/directory
       - --certificatesresolvers.myresolver.acme.email=${TRAEFIK_LETSENCRYPT_EMAIL}
       - --certificatesresolvers.myresolver.acme.storage=/letsencrypt/acme.json
       - --entrypoints.web.http.redirections.entryPoint.to=websecure
-      - --entrypoints.web.http.redirections.entryPoint.scheme=https
       - --entrypoints.web.http.redirections.entrypoint.permanent=true
+      - --entrypoints.web.http.redirections.entryPoint.scheme=https
       - --metrics.prometheus=true
       - --metrics.prometheus.entryPoint=web
     environment:
@@ -43,6 +44,23 @@ services:
       - ./data/traefik:/letsencrypt
       - /var/run/docker.sock:/var/run/docker.sock
 
+  fil_cron:
+    build:
+      context: cron
+    container_name: fil_cron
+    hostname: fil_cron 
+    # environment:
+    #   - POSTGRES_DB=nextcloud
+    #   - POSTGRES_HOST=db_postgres_nextcloud
+    #   - POSTGRES_USER=nextcloud
+    #   - POSTGRES_PASSWORD=$POSTGRES_PASSWORD
+    volumes:
+      - ./data:/data
+      - ./credentials:/credentials
+      - ./config/cron/rclone_excludes:/config/rclone_excludes
+      - ./config/cron/daily_backup.sh:/usr/local/bin/daily_backup.sh
+      - ./config/cron/daily_backup_timeout:/etc/periodic/daily/daily_backup_timeout
+
   mon_grafana:
     image: grafana/grafana:${TAG_GRAFANA}
     container_name: mon_grafana
@@ -54,7 +72,6 @@ services:
     user: "1000"
     environment:
       - INFLUXDB_GRAFANA_TOKEN
-      - GF_DASHBOARDS_DEFAULT_HOME_DASHBOARD_PATH=/var/lib/grafana/dashboards/monitoring/alerting.json
       - GF_SERVER_DOMAIN=grafana.${TRAEFIK_DOMAIN}
       - GF_SERVER_ROOT_URL=%(protocol)s://%(domain)s/
       - GF_SECURITY_ADMIN_PASSWORD=${GRAFANA_ADMIN_PASSWORD}
@@ -67,7 +84,6 @@ services:
     volumes:
       - ./data/grafana:/var/lib/grafana
       - ./config/grafana/provisioning:/etc/grafana/provisioning
-      - ./config/grafana/dashboards:/var/lib/grafana/dashboards
 
   mon_promtail:
     image: grafana/promtail:${TAG_PROMTAIL}
@@ -132,6 +148,8 @@ services:
       - TZ=${TZ}
       - PIHOLE_DNS_=10.0.0.2#5053
       - WEBPASSWORD=${PI_HOLE_PASSWORD}
+      - DNS_BOGUS_PRIV=true
+      - DNS_FQDN_REQUIRED=true
     labels:
       - traefik.enable=true
       - traefik.http.routers.pihole.rule=Host(`pihole.${TRAEFIK_DOMAIN}`)
@@ -268,6 +286,6 @@ services:
 networks:
   default:
     ipam:
-     config:
+      config:
        - subnet: 10.0.0.0/24
          ip_range: 10.0.0.128/25

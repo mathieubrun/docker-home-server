@@ -25,4 +25,10 @@ scrape_configs:
       - source_labels:
         - __journal_container_name
         target_label: container_name
-
+    pipeline_stages:
+      - regex: 
+          expression: '.*level=(?P<log_level>[a-zA-Z]+).*'
+      - regex: 
+          expression: '.*lvl=(?P<log_level>[a-zA-Z]+).*'
+      - labels:
+          log_level: 
