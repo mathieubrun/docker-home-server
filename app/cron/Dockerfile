@@ -12,4 +12,4 @@ RUN cd /tmp && \
     chown root:root /usr/bin/rclone && \
     chmod 755 /usr/bin/rclone
 
-ENTRYPOINT [ "crond", "-f", "-l", "0" ]
+ENTRYPOINT [ "crond", "-f" ]

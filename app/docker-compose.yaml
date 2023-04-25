@@ -125,6 +125,7 @@ services:
       - DOCKER_INFLUXDB_INIT_BUCKET=monitoring
       - INFLUXDB_HTTP_LOG_ENABLED=false
       - INFLUXDB_REPORTING_DISABLED=true
+      - INFLUXD_LOG_LEVEL=error
     labels:
       - traefik.enable=true
       - traefik.http.routers.influxdb.rule=Host(`influxdb.${TRAEFIK_DOMAIN}`)
