@@ -48,3 +48,12 @@ Then restart the docker service using `sudo systemctl restart docker.service`
 
 - more docs
 - backups
+
+
+pg_dump postgres://${FIREFLY_DB_USER}:${FIREFLY_DB_PASSWORD}@${FIREFLY_DB_HOST}:5432/${FIREFLY_DB_DATABASE} > firefly.dump
+psql postgres://${FIREFLY_DB_USER}:${FIREFLY_DB_PASSWORD}@${FIREFLY_DB_HOST}_new:5432/${FIREFLY_DB_DATABASE} < firefly.dump
+rm firefly.dump
+
+pg_dump postgres://${NEXTCLOUD_DB_USER}:${NEXTCLOUD_DB_PASSWORD}@${NEXTCLOUD_DB_HOST}:5432/${NEXTCLOUD_DB_DATABASE} > nextcloud.dump
+psql postgres://${NEXTCLOUD_DB_USER}:${NEXTCLOUD_DB_PASSWORD}@${NEXTCLOUD_DB_HOST}:5432/${NEXTCLOUD_DB_DATABASE} < nextcloud.dump
+rm nextcloud.dump

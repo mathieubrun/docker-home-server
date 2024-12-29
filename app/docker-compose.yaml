@@ -1,5 +1,3 @@
-version: '3.5'
-
 services:
   net_ingress:
     image: traefik:${TAG_TRAEFIK}
@@ -7,17 +5,14 @@ services:
     hostname: net_ingress
     restart: always
     command:
-      # - --log.level=DEBUG
       - --api
       - --providers.docker=true
       - --providers.docker.exposedbydefault=false
       - --entrypoints.websecure.address=:443
       - --entrypoints.web.address=:80
       - --entrypoints.mqtt.address=:8883
-      # - --certificatesresolvers.myresolver.tailscale=true
       - --certificatesresolvers.myresolver.acme.dnschallenge=true
       - --certificatesresolvers.myresolver.acme.dnschallenge.provider=digitalocean
-      # - --certificatesresolvers.myresolver.acme.caserver=https://acme-staging-v02.api.letsencrypt.org/directory
       - --certificatesresolvers.myresolver.acme.email=${TRAEFIK_LETSENCRYPT_EMAIL}
       - --certificatesresolvers.myresolver.acme.storage=/letsencrypt/acme.json
       - --entrypoints.web.http.redirections.entryPoint.to=websecure
@@ -41,100 +36,17 @@ services:
       - 443:443
       - 8883:8883
     volumes:
-      - ./data/traefik:/letsencrypt
+      - ./data/clear/traefik:/letsencrypt
       - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      default:
+        ipv4_address: 10.0.0.3
 
-  fil_cron:
-    build:
-      context: cron
-    container_name: fil_cron
-    hostname: fil_cron 
-    # environment:
-    #   - POSTGRES_DB=nextcloud
-    #   - POSTGRES_HOST=db_postgres_nextcloud
-    #   - POSTGRES_USER=nextcloud
-    #   - POSTGRES_PASSWORD=$POSTGRES_PASSWORD
-    volumes:
-      - ./data:/data
-      - ./credentials:/credentials
-      - ./config/cron/rclone_excludes:/config/rclone_excludes
-      - ./config/cron/daily_backup.sh:/usr/local/bin/daily_backup.sh
-      - ./config/cron/daily_backup_timeout:/etc/periodic/daily/daily_backup_timeout
+###########
+# always on
+###########
 
-  mon_grafana:
-    image: grafana/grafana:${TAG_GRAFANA}
-    container_name: mon_grafana
-    hostname: mon_grafana
-    depends_on:
-      - db_influxdb
-      - db_loki
-    restart: always
-    user: "1000"
-    environment:
-      - INFLUXDB_GRAFANA_TOKEN
-      - GF_SERVER_DOMAIN=grafana.${TRAEFIK_DOMAIN}
-      - GF_SERVER_ROOT_URL=%(protocol)s://%(domain)s/
-      - GF_SECURITY_ADMIN_PASSWORD=${GRAFANA_ADMIN_PASSWORD}
-    labels:
-      - traefik.enable=true
-      - traefik.http.routers.grafana.rule=Host(`grafana.${TRAEFIK_DOMAIN}`)
-      - traefik.http.routers.grafana.tls=true
-      - traefik.http.routers.grafana.tls.certresolver=myresolver
-      - traefik.http.services.grafana.loadbalancer.server.port=3000
-    volumes:
-      - ./data/grafana:/var/lib/grafana
-      - ./config/grafana/provisioning:/etc/grafana/provisioning
-
-  mon_promtail:
-    image: grafana/promtail:${TAG_PROMTAIL}
-    container_name: mon_promtail
-    hostname: mon_promtail
-    restart: always
-    volumes:
-      - ./config/promtail/promtail.yaml:/etc/promtail/config.yml
-      - ./data/promtail:/data
-      - /var/log:/var/log
-    command: -config.file=/etc/promtail/config.yml
-
-  db_loki:
-    image: grafana/loki:${TAG_LOKI}
-    container_name: db_loki
-    hostname: db_loki
-    restart: always
-    user: "1000"
-    command: -config.file=/etc/loki/local-config.yaml
-    labels:
-      - traefik.enable=true
-      - traefik.http.routers.loki.rule=Host(`loki.${TRAEFIK_DOMAIN}`)
-      - traefik.http.routers.loki.tls=true
-      - traefik.http.routers.loki.tls.certresolver=myresolver
-      - traefik.http.services.loki.loadbalancer.server.port=3100
-    volumes:
-      - ./config/loki/loki-config.yaml:/etc/loki/local-config.yaml
-      - ./data/loki:/loki
-
-  db_influxdb:
-    image: influxdb:${TAG_INFLUXDB}
-    container_name: db_influxdb
-    hostname: db_influxdb
-    restart: always
-    environment:
-      - DOCKER_INFLUXDB_INIT_USERNAME=admin
-      - DOCKER_INFLUXDB_INIT_PASSWORD=${INFLUXDB_ADMIN_PASSWORD}
-      - DOCKER_INFLUXDB_INIT_ORG=home
-      - DOCKER_INFLUXDB_INIT_BUCKET=monitoring
-      - INFLUXDB_HTTP_LOG_ENABLED=false
-      - INFLUXDB_REPORTING_DISABLED=true
-      - INFLUXD_LOG_LEVEL=error
-    labels:
-      - traefik.enable=true
-      - traefik.http.routers.influxdb.rule=Host(`influxdb.${TRAEFIK_DOMAIN}`)
-      - traefik.http.routers.influxdb.tls=true
-      - traefik.http.routers.influxdb.tls.certresolver=myresolver
-      - traefik.http.services.influxdb.loadbalancer.server.port=8086
-    volumes:
-      - ./data/influxdb2:/var/lib/influxdb2
-
+  # DNS
   net_pihole:
     image: pihole/pihole:${TAG_PIHOLE}
     container_name: net_pihole
@@ -158,8 +70,8 @@ services:
       - traefik.http.routers.pihole.tls.certresolver=myresolver
       - traefik.http.services.pihole.loadbalancer.server.port=80
     volumes:
-      - ./data/pihole/config/etc-pihole/:/etc/pihole/
-      - ./data/pihole/config/etc-dnsmasq.d/:/etc/dnsmasq.d/
+      - ./data/clear/pihole/config/etc-pihole/:/etc/pihole/
+      - ./data/clear/pihole/config/etc-dnsmasq.d/:/etc/dnsmasq.d/
 
   net_unbound:
     image: klutchell/unbound:${TAG_UNBOUND}
@@ -170,17 +82,84 @@ services:
       default:
         ipv4_address: 10.0.0.2
 
+  # MONITORING
+  db_loki:
+    image: grafana/loki:${TAG_LOKI}
+    container_name: db_loki
+    hostname: db_loki
+    restart: always
+    user: "1000"
+    command: -config.file=/etc/loki/local-config.yaml
+    volumes:
+      - ./config/loki/loki-config.yaml:/etc/loki/local-config.yaml
+      - ./data/clear/loki:/loki
+  mon_promtail:
+    image: grafana/promtail:${TAG_PROMTAIL}
+    container_name: mon_promtail
+    hostname: mon_promtail
+    restart: always
+    depends_on:
+      - db_loki
+    volumes:
+      - ./config/promtail/promtail.yaml:/etc/promtail/config.yml
+      - ./data/clear/promtail:/data
+      - /var/log:/var/log
+    command: -config.file=/etc/promtail/config.yml
+  mon_grafana:
+    image: grafana/grafana:${TAG_GRAFANA}
+    container_name: mon_grafana
+    hostname: mon_grafana
+    restart: always
+    depends_on:
+      - db_loki
+    user: "1000"
+    environment:
+      - INFLUXDB_GRAFANA_TOKEN
+      - GF_SERVER_DOMAIN=grafana.${TRAEFIK_DOMAIN}
+      - GF_SERVER_ROOT_URL=%(protocol)s://%(domain)s/
+      - GF_SECURITY_ADMIN_PASSWORD=${GRAFANA_ADMIN_PASSWORD}
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.grafana.rule=Host(`grafana.${TRAEFIK_DOMAIN}`)
+      - traefik.http.routers.grafana.tls=true
+      - traefik.http.routers.grafana.tls.certresolver=myresolver
+      - traefik.http.services.grafana.loadbalancer.server.port=3000
+    volumes:
+      - ./data/clear/grafana:/var/lib/grafana
+      - ./config/grafana/provisioning:/etc/grafana/provisioning
+
+  # IOT
+  db_influxdb:
+    image: influxdb:${TAG_INFLUXDB}
+    container_name: db_influxdb
+    hostname: db_influxdb
+    restart: always
+    environment:
+      - DOCKER_INFLUXDB_INIT_USERNAME=admin
+      - DOCKER_INFLUXDB_INIT_PASSWORD=${INFLUXDB_ADMIN_PASSWORD}
+      - DOCKER_INFLUXDB_INIT_ORG=home
+      - DOCKER_INFLUXDB_INIT_BUCKET=monitoring
+      - INFLUXDB_HTTP_LOG_ENABLED=false
+      - INFLUXDB_REPORTING_DISABLED=true
+      - INFLUXD_LOG_LEVEL=error
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.influxdb.rule=Host(`influxdb.${TRAEFIK_DOMAIN}`)
+      - traefik.http.routers.influxdb.tls=true
+      - traefik.http.routers.influxdb.tls.certresolver=myresolver
+      - traefik.http.services.influxdb.loadbalancer.server.port=8086
+    volumes:
+      - ./data/clear/influxdb2:/var/lib/influxdb2
   iot_mosquitto:
     image: eclipse-mosquitto:${TAG_MOSQUITTO}
     container_name: iot_mosquitto
     hostname: iot_mosquitto
     restart: always
-    entrypoint: /entrypoint.sh
     environment:
       - MOSQUITTO_USERNAME=${MOSQUITTO_USERNAME}
       - MOSQUITTO_PASSWORD=${MOSQUITTO_PASSWORD}
     volumes:
-      - ./data/mosquitto:/mosquitto/data
+      - ./data/clear/mosquitto:/mosquitto/data
       - ./src/mosquitto/entrypoint.sh:/entrypoint.sh
       - ./config/mosquitto/mosquitto.conf:/mosquitto/config/mosquitto.conf
     labels:
@@ -190,7 +169,38 @@ services:
       - traefik.tcp.routers.mqtt.tls=true
       - traefik.tcp.routers.mqtt.service=mqtt
       - traefik.tcp.services.mqtt.loadBalancer.server.port=1883
-
+  iot_zigbee2mqtt:
+    image: koenkk/zigbee2mqtt:${TAG_ZIGBEE2MQTT}
+    container_name: iot_zigbee2mqtt
+    hostname: iot_zigbee2mqtt
+    restart: always
+    depends_on:
+      - iot_mosquitto
+    devices:
+      - ${ZIGBEE_DEVICE}
+    environment:
+      - TZ=${TZ}
+      - ZIGBEE2MQTT_CONFIG_FRONTEND_PORT=8080
+      - ZIGBEE2MQTT_CONFIG_HOMEASSISTANT=false
+      - ZIGBEE2MQTT_CONFIG_PERMIT_JOIN=false
+      - ZIGBEE2MQTT_CONFIG_MQTT_SERVER=mqtts://mqtt.${TRAEFIK_DOMAIN}
+      # - ZIGBEE2MQTT_CONFIG_MQTT_USER=${MOSQUITTO_USERNAME}
+      # - ZIGBEE2MQTT_CONFIG_MQTT_PASSWORD=${MOSQUITTO_PASSWORD}
+      - ZIGBEE2MQTT_CONFIG_MQTT_BASE_TOPIC=zigbee2mqtt
+      - ZIGBEE2MQTT_CONFIG_MQTT_INCLUDE_DEVICE_INFORMATION=true
+      - ZIGBEE2MQTT_CONFIG_SERIAL_PORT=${ZIGBEE_DEVICE}
+      - ZIGBEE2MQTT_CONFIG_SERIAL_DISABLE_LED=${ZIGBEE_DISABLE_LED}
+      - ZIGBEE2MQTT_CONFIG_SERIAL_ADAPTER=${ZIGBEE_ADAPTER}
+      - ZIGBEE2MQTT_CONFIG_ADVANCED_LOG_LEVEL=warn
+      - ZIGBEE2MQTT_CONFIG_ADVANCED_LOG_OUTPUT_0=console
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.zigbee2mqtt.rule=Host(`zigbee.${TRAEFIK_DOMAIN}`)
+      - traefik.http.routers.zigbee2mqtt.tls=true
+      - traefik.http.routers.zigbee2mqtt.tls.certresolver=myresolver
+      - traefik.http.services.zigbee2mqtt.loadbalancer.server.port=8080
+    volumes:
+      - ./data/clear/zigbee2mqtt:/app/data
   iot_nodered:
     image: nodered/node-red:${TAG_NODERED}
     container_name: iot_nodered
@@ -209,41 +219,108 @@ services:
       - traefik.http.routers.nodered.tls.certresolver=myresolver
       - traefik.http.services.nodered.loadbalancer.server.port=1880
     volumes:
-      - ./data/nodered:/data
+      - ./data/clear/nodered:/data
 
-  iot_zigbee2mqtt:
-    image: koenkk/zigbee2mqtt:${TAG_ZIGBEE2MQTT}
-    container_name: iot_zigbee2mqtt
-    hostname: iot_zigbee2mqtt
-    restart: always
-    depends_on:
-      - iot_mosquitto
-    devices:
-      - ${ZIGBEE_DEVICE}
+##############
+# manual start
+##############
+
+  # FIREFLY
+  fin_firefly_db:
+    image: postgres:17-alpine
+    container_name: fin_firefly_db
+    ports:
+      - 5433:5432
+    volumes:
+      - ./data/crypt/postgres_firefly_17:/var/lib/postgresql/data
     environment:
-      - TZ=${TZ}
-      - ZIGBEE2MQTT_CONFIG_FRONTEND_PORT=8080
-      - ZIGBEE2MQTT_CONFIG_HOMEASSISTANT=false
-      - ZIGBEE2MQTT_CONFIG_PERMIT_JOIN=false
-      - ZIGBEE2MQTT_CONFIG_MQTT_SERVER=mqtts://mqtt.${TRAEFIK_DOMAIN}
-      - ZIGBEE2MQTT_CONFIG_MQTT_USER=${MOSQUITTO_USERNAME}
-      - ZIGBEE2MQTT_CONFIG_MQTT_PASSWORD=${MOSQUITTO_PASSWORD}
-      - ZIGBEE2MQTT_CONFIG_MQTT_BASE_TOPIC=zigbee2mqtt
-      - ZIGBEE2MQTT_CONFIG_MQTT_INCLUDE_DEVICE_INFORMATION=true
-      - ZIGBEE2MQTT_CONFIG_SERIAL_PORT=${ZIGBEE_DEVICE}
-      - ZIGBEE2MQTT_CONFIG_SERIAL_DISABLE_LED=${ZIGBEE_DISABLE_LED}
-      - ZIGBEE2MQTT_CONFIG_SERIAL_ADAPTER=${ZIGBEE_ADAPTER}
-      - ZIGBEE2MQTT_CONFIG_ADVANCED_LOG_LEVEL=warn
-      - ZIGBEE2MQTT_CONFIG_ADVANCED_LOG_OUTPUT_0=console
+      - POSTGRES_USER=${FIREFLY_DB_USERNAME}
+      - POSTGRES_DATABASE=${FIREFLY_DB_DATABASE}
+      - POSTGRES_PASSWORD=${FIREFLY_DB_PASSWORD}
+  fin_firefly_app:
+    image: fireflyiii/core:${TAG_FIREFLY}
+    hostname: fin_firefly_app
+    container_name: fin_firefly_app
+    depends_on:
+      - fin_firefly_db
+    volumes:
+      - ./data/crypt/firefly/upload:/var/www/html/storage/upload
+    environment:
+      - APP_KEY=${FIREFLY_APP_KEY}
+      - TRUSTED_PROXIES=${FIREFLY_TRUSTED_PROXIES}
+      - DB_CONNECTION=${FIREFLY_DB_CONNECTION}
+      - DB_HOST=${FIREFLY_DB_HOST}
+      - DB_PORT=${FIREFLY_DB_PORT}
+      - DB_DATABASE=${FIREFLY_DB_DATABASE}
+      - DB_USERNAME=${FIREFLY_DB_USERNAME}
+      - DB_PASSWORD=${FIREFLY_DB_PASSWORD}
+      - STATIC_CRON_TOKEN=${FIREFLY_STATIC_CRON_TOKEN}
+      - APP_URL=${FIREFLY_APP_URL}
     labels:
       - traefik.enable=true
-      - traefik.http.routers.zigbee2mqtt.rule=Host(`zigbee.${TRAEFIK_DOMAIN}`)
-      - traefik.http.routers.zigbee2mqtt.tls=true
-      - traefik.http.routers.zigbee2mqtt.tls.certresolver=myresolver
-      - traefik.http.services.zigbee2mqtt.loadbalancer.server.port=8080
-    volumes:
-      - ./data/zigbee2mqtt:/app/data
+      - traefik.http.routers.firefly.rule=Host(`firefly.${TRAEFIK_DOMAIN}`)
+      - traefik.http.routers.firefly.tls=true
+      - traefik.http.routers.firefly.tls.certresolver=myresolver
+      - traefik.http.services.firefly.loadbalancer.server.port=8080
+  fin_firefly_importer:
+    image: fireflyiii/data-importer:${TAG_FIREFLY_IMPORTER}
+    hostname: fin_firefly_importer
+    container_name: fin_firefly_importer
+    depends_on:
+      - fin_firefly_app
+    environment:
+      - FIREFLY_III_URL=${FIREFLY_FIREFLY_III_URL}
+      - VANITY_URL=${FIREFLY_APP_URL}
+      - FIREFLY_III_ACCESS_TOKEN=${FIREFLY_FIREFLY_III_ACCESS_TOKEN}
+      - TRUSTED_PROXIES=${FIREFLY_TRUSTED_PROXIES}
+      - TZ=${TZ}
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.firefly_importer.rule=Host(`firefly-importer.${TRAEFIK_DOMAIN}`)
+      - traefik.http.routers.firefly_importer.tls=true
+      - traefik.http.routers.firefly_importer.tls.certresolver=myresolver
+      - traefik.http.services.firefly_importer.loadbalancer.server.port=8080
+  fin_firefly_cron:
+    image: alpine
+    container_name: fin_firefly_cron
+    environment:
+      - STATIC_CRON_TOKEN=${FIREFLY_STATIC_CRON_TOKEN}
+    command: sh -c "echo \"0 3 * * * wget -qO- http://fin_firefly_app:8080/api/v1/cron/${FIREFLY_STATIC_CRON_TOKEN}\" | crontab - && crond -f -L /dev/stdout"
 
+  # BACKUP
+  fil_cron:
+    build:
+      context: cron
+    container_name: fil_cron
+    hostname: fil_cron 
+    environment:
+      - FIREFLY_DB_HOST=fin_firefly_db
+      - FIREFLY_DB_DATABASE=${FIREFLY_DB_DATABASE}
+      - FIREFLY_DB_USER=${FIREFLY_DB_USERNAME}
+      - FIREFLY_DB_PASSWORD=${FIREFLY_DB_PASSWORD}
+      - NEXTCLOUD_DB_HOST=db_postgres_nextcloud
+      - NEXTCLOUD_DB_DATABASE=nextcloud
+      - NEXTCLOUD_DB_USER=nextcloud
+      - NEXTCLOUD_DB_PASSWORD=$POSTGRES_PASSWORD
+    volumes:
+      - ./data:/data
+      - ./data/crypt/credentials:/credentials
+      - ./config/cron/rclone_excludes:/config/rclone_excludes
+      - ./config/cron/daily_backup.sh:/usr/local/bin/daily_backup.sh
+      - ./config/cron/daily_backup_timeout:/etc/periodic/daily/daily_backup_timeout
+
+  # NEXTCLOUD
+  db_postgres_nextcloud:
+    image: postgres:17-alpine
+    container_name: db_postgres_nextcloud
+    ports:
+      - 5432:5432
+    volumes:
+      - ./data/crypt/postgres_nextcloud_17:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_USER=nextcloud
+      - POSTGRES_DATABASE=nextcloud
+      - POSTGRES_PASSWORD=$POSTGRES_PASSWORD
   fil_nextcloud:
     image: nextcloud:${TAG_NEXTCLOUD}
     container_name: fil_nextcloud
@@ -260,7 +337,7 @@ services:
       - TRUSTED_PROXIES=nextcloud.${TRAEFIK_DOMAIN}
       - OVERWRITEPROTOCOL=https
     volumes:
-      - ./data/nextcloud:/var/www/html
+      - ./data/crypt/nextcloud:/var/www/html
     labels:
       - traefik.enable=true
       - traefik.http.routers.nextcloud.rule=Host(`nextcloud.${TRAEFIK_DOMAIN}`)
@@ -274,15 +351,7 @@ services:
       - traefik.http.middlewares.nextcloud_redirect.redirectregex.regex=/.well-known/(card|cal)dav
       - traefik.http.middlewares.nextcloud_redirect.redirectregex.replacement=/remote.php/dav/
 
-  db_postgres_nextcloud:
-    image: postgres:${TAG_POSTGRES}
-    container_name: db_postgres_nextcloud
-    volumes:
-      - ./data/postgres_nextcloud:/var/lib/postgresql/data
-    environment:
-      - POSTGRES_USER=nextcloud
-      - POSTGRES_DATABASE=nextcloud
-      - POSTGRES_PASSWORD=$POSTGRES_PASSWORD
+
 
 networks:
   default:

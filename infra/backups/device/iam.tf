@@ -12,7 +12,8 @@ data "aws_iam_policy_document" "s3_access" {
   statement {
     effect = "Allow"
     actions = [
-      "s3:ListBucket"
+      "s3:ListBucket",
+      "s3:ListBucketVersions"
     ]
     resources = [
       "${var.bucket_arn}"
@@ -24,6 +25,7 @@ data "aws_iam_policy_document" "s3_access" {
     actions = [
       "s3:AbortMultipartUpload",
       "s3:GetObject",
+      "s3:GetObjectVersion",
       "s3:PutObject",
       "s3:PutObjectAcl",
       "s3:DeleteObject"
